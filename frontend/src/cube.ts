@@ -2,12 +2,14 @@ import * as THREE from 'three'
 import {CSS3DObject} from 'three/examples/jsm/renderers/CSS3DRenderer'
 
 class CubeFace {
+  url: string
   plane: THREE.Mesh
   cssObject: CSS3DObject
   targetRotation: THREE.Euler
   targetPosition: THREE.Vector3
 
-  constructor(plane: THREE.Mesh, cssObject: CSS3DObject) {
+  constructor(url: string, plane: THREE.Mesh, cssObject: CSS3DObject) {
+    this.url = url
     this.plane = plane
     this.cssObject = cssObject
     this.targetPosition = new THREE.Vector3(
@@ -101,6 +103,16 @@ class Cube {
     this.targetRotation.y += amount
   }
 
+  getFrontFace(): CubeFace {
+    let front: CubeFace = null;
+    this.faces.forEach(face => {
+      if (face == null || face.targetRotation < front.targetRotation) {
+        front = face
+      }
+    })
+    return front
+  }
+
   assignFacet(face: 0 | 1 | 2 | 3, url: string) {
     let position = new THREE.Vector3()
     let rotation = new THREE.Euler()
@@ -134,7 +146,7 @@ class Cube {
 
     let plane = Cube.createPlane(this.side + buffer / 2, this.side + buffer / 2, position, rotation)
     let object = Cube.createCssObject(this.side + buffer / 2, this.side + buffer / 2, position, rotation, url)
-    this.faces.push(new CubeFace(plane, object))
+    this.faces.push(new CubeFace(url, plane, object))
     this.glScene.add(plane)
     this.cssScene.add(object)
   }

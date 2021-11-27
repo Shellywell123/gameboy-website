@@ -123,11 +123,21 @@ function createControls() {
             )
             break
           case "selected":
-            cube.rotateOverYAxis(0)
+            console.error("not implemented")
+            // window.location.href = cube.getFrontFace().url;
+            // STATE = "idle"
+            break
+        }
+        break
+      case "Backspace":
+        switch (STATE) {
+          case "selected":
+            cube.rotateOverYAxis(0, true)
             camera.reset()
             STATE = "idle"
             break
         }
+        break
     }
   });
 }
