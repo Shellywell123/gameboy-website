@@ -3,6 +3,7 @@ import os
 import logging
 import uuid
 from webdriver_screenshot import WebDriverScreenshot
+from datetime import datetime
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -16,11 +17,11 @@ def lambda_handler(event, context):
     urls = os.environ['URLS'].split('|')
 
     for url in urls:
-        screenshot_file = "{}-{}".format(''.join(filter(str.isalpha, url)), str(uuid.uuid4()))
+        screenshot_file = "{}-{}".format(''.join(filter(str.isalpha, url)), datetime.today().strftime('%Y%m'))
         driver = WebDriverScreenshot()
 
         logger.info('Generate fixed height screenshot')
-        driver.save_screenshot(url, '/tmp/{}-fixed.png'.format(screenshot_file), height=1024)
+        driver.save_screenshot(url, '/tmp/{}-fixed.png'.format(screenshot_file), height=1280)
 
         logger.info('Generate full height screenshot')
         driver.save_screenshot(url, '/tmp/{}-full.png'.format(screenshot_file))
