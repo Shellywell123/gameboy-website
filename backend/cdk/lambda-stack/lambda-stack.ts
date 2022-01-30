@@ -3,7 +3,8 @@ import {Construct} from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as path from 'path'
 import {Bucket} from "aws-cdk-lib/aws-s3";
-
+import {Rule, Schedule} from 'aws-cdk-lib/aws-events';
+import {LambdaFunction} from "aws-cdk-lib/aws-events-targets";
 
 export class LambdaStack extends Stack {
   constructor(scope: Construct, id: string) {
@@ -24,9 +25,9 @@ export class LambdaStack extends Stack {
       handler: 'lambda_function.lambda_handler',
       runtime: lambda.Runtime.PYTHON_3_7,
       layers: [layer],
-      timeout: Duration.minutes(1),
+      timeout: Duration.minutes(2),
       environment: {
-        URL: 'https://www.ipo-track.com',
+        URLS: 'https://www.ipo-track.com|https://www.alramalho.com',
         BUCKET: 'alramalhosandbox',
         DESTPATH: 'screenshots',
       },
@@ -35,5 +36,11 @@ export class LambdaStack extends Stack {
 
     bucket.grantRead(screenshotLambda)
     bucket.grantPut(screenshotLambda)
+
+    const triggerScreenshotLambda = new Rule(this, `TriggerScreenshotLambda`, {
+      ruleName: `TriggerScreenshotLambda`,
+      schedule: Schedule.cron({weekDay: 'MON'}),
+      targets: [new LambdaFunction(screenshotLambda)],
+    });
   }
 }
