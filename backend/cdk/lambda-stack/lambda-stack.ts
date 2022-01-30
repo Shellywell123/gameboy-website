@@ -1,0 +1,39 @@
+import {Duration, Stack} from 'aws-cdk-lib';
+import {Construct} from 'constructs';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as path from 'path'
+import {Bucket} from "aws-cdk-lib/aws-s3";
+
+
+export class LambdaStack extends Stack {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+
+    const bucket = Bucket.fromBucketName(this, 'SandboxBucket', 'alramalhosandbox')
+
+    const layer = new lambda.LayerVersion(this, 'ScreenshotLambdaDependencies', {
+      code: lambda.Code.fromBucket(bucket, 'src/SeleniumChromiumLayer.zip'),
+      compatibleRuntimes: [lambda.Runtime.PYTHON_3_7, lambda.Runtime.PYTHON_3_6],
+      license: 'Apache-2.0',
+      description: 'Screenshot lambda dependencies',
+    });
+
+
+    const screenshotLambda = new lambda.Function(this, 'ScreenshotLambda', {
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambdas/screenshot-lambda')),
+      handler: 'lambda_function.lambda_handler',
+      runtime: lambda.Runtime.PYTHON_3_7,
+      layers: [layer],
+      timeout: Duration.minutes(1),
+      environment: {
+        URL: 'https://www.ipo-track.com',
+        BUCKET: 'alramalhosandbox',
+        DESTPATH: 'screenshots',
+      },
+      memorySize: 2048
+    });
+
+    bucket.grantRead(screenshotLambda)
+    bucket.grantPut(screenshotLambda)
+  }
+}
