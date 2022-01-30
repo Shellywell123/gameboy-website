@@ -1,0 +1,58 @@
+name: Github Pipeline
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  Deploy-To-Sandbox:
+    runs-on: ubuntu-latest
+    env:
+      ENVIRONMENT: sandbox
+      DATA_API_URL: https://arnnvraxch.execute-api.eu-west-1.amazonaws.com/sandbox/stocks
+      RAPID_API_KEY: irrelevant
+    steps:
+
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          sudo apt install nodejs
+          node -v
+          sudo apt install npm
+          npm -v
+          npm install -g aws-cdk
+          cdk --version
+          sudo apt install jq
+          jq --version
+
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install --update
+          aws --version
+          aws -h
+
+
+
+      - name: Configure AWS
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set region eu-west-1
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} --profile portfolio
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}  --profile portfolio
+          aws configure set region eu-west-1  --profile portfolio
+
+      - name: Build-Selenium-Layer
+        run: |
+          cd /backend/cdk/lambda-stack/selenium
+          chmod +x ./build.sh
+          ./build.sh
+
+          aws s3 cp layer.zip s3://alramalhosandbox/src/SeleniumChromiumLayer.zip
+
+      - name: Deploy-Lambda
+        run: |
+          cdk deploy --profile portfolio
