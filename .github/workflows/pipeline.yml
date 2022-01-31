@@ -47,7 +47,7 @@ jobs:
 
       - name: Build-Selenium-Layer
         run: |
-          cd /backend/cdk/lambda-stack/selenium
+          cd backend/cdk/lambda-stack/selenium
           chmod +x ./build.sh
           ./build.sh
 
