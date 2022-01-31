@@ -40,11 +40,11 @@ function init() {
   )
   createLights();
 
-  cube = new Cube(glScene, cssScene, 800)
-  cube.assignFacet(0, 'https://www.ipo-warning.com')
-  cube.assignFacet(1, 'https://www.alramalho.com')
-  cube.assignFacet(2, 'https://www.alramalho.com/terms')
-  cube.assignFacet(3, 'https://www.compound-composer.com')
+
+
+  cube = new Cube(glScene,800)
+  cube.assignFacet(0, `https://alramalhosandbox.s3.eu-west-1.amazonaws.com/screenshots/httpswwwalramalhocom-${new Date().toJSON().slice(0,7)}-fixed.png`)
+  cube.assignFacet(4, `https://alramalhosandbox.s3.eu-west-1.amazonaws.com/screenshots/httpswwwipotrackcom-${new Date().toJSON().slice(0,7)}-fixed.png`)
 
   createControls();
 
@@ -132,7 +132,7 @@ function createControls() {
       case "Backspace":
         switch (STATE) {
           case "selected":
-            cube.rotateOverYAxis(0, true)
+            cube.rotateOverYAxis(0)
             camera.reset()
             STATE = "idle"
             break
@@ -146,7 +146,7 @@ function update() {
 
   switch (STATE) {
     case "idle":
-      cube.rotateOverYAxis(0.01, false)
+      cube.rotateOverYAxis(0.01)
       break
 
     case "selected":
