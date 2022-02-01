@@ -39,7 +39,7 @@ export class LambdaStack extends Stack {
 
     const triggerScreenshotLambda = new Rule(this, `TriggerScreenshotLambda`, {
       ruleName: `TriggerScreenshotLambda`,
-      schedule: Schedule.cron({weekDay: 'MON'}),
+      schedule: Schedule.cron({minute: '0', hour: '4'}),
       targets: [new LambdaFunction(screenshotLambda)],
     });
   }
