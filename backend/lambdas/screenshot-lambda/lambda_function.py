@@ -17,7 +17,7 @@ def lambda_handler(event, context):
     urls = os.environ['URLS'].split('|')
 
     for url in urls:
-        screenshot_file = "{}-{}".format(''.join(filter(str.isalpha, url)), datetime.today().strftime('%Y%m'))
+        screenshot_file = "{}-{}".format(''.join(filter(str.isalpha, url)), datetime.today().strftime('%Y-%m'))
         driver = WebDriverScreenshot()
 
         logger.info('Generate fixed height screenshot')

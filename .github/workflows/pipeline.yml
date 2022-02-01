@@ -8,10 +8,6 @@ jobs:
 
   Deploy-To-Sandbox:
     runs-on: ubuntu-latest
-    env:
-      ENVIRONMENT: sandbox
-      DATA_API_URL: https://arnnvraxch.execute-api.eu-west-1.amazonaws.com/sandbox/stocks
-      RAPID_API_KEY: irrelevant
     steps:
 
       - name: Checkout source code
@@ -47,7 +43,8 @@ jobs:
 
       - name: Build-Selenium-Layer
         run: |
-          cd backend/cdk/lambda-stack/selenium
+          ls -l
+          cd ./backend/cdk/lambda-stack/selenium
           chmod +x ./build.sh
           ./build.sh
 
