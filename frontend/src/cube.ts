@@ -1,12 +1,39 @@
 import * as THREE from 'three'
 
+class CubeFace {
+  url: string
+  texture: THREE.Texture
+
+  constructor(url: string){
+    this.url = url
+  }
+
+  async computeTexture(){
+    const image = new Image();
+    image.src = <string>await toDataURL(this.getImageUrl(this.url))
+    let texture = new THREE.Texture();
+    texture.image = image;
+    image.onload = function () {
+      texture.needsUpdate = true;
+    };
+    image.onload = () =>  { texture.needsUpdate = true };
+    this.texture = texture
+  }
+
+  getImageUrl(url: string) {
+    // todo make env var
+    const bucket = "alramalhosandbox"
+    return `https://${bucket}.s3.eu-west-1.amazonaws.com/screenshots/${url.replace(/\W/g, '')}-${new Date().toJSON().slice(0,7)}-fixed.png`
+  }
+}
+
 class Cube {
   glScene: THREE.Scene
   mesh: THREE.Mesh
   readonly side: number
   targetRotation: THREE.Euler
-  onGoingTimeout: NodeJS.Timeout
   materialArray: THREE.MeshMaterial[]
+  faces: [CubeFace | null, CubeFace | null, CubeFace | null, CubeFace | null, CubeFace | null, CubeFace | null]
 
   constructor(glScene: THREE.Scene, side: number) {
     this.glScene = glScene
@@ -29,6 +56,7 @@ class Cube {
       this.mesh.rotation.y,
       this.mesh.rotation.z
     )
+    this.faces = [null, null, null, null, null, null]
   }
 
   update() {
@@ -39,20 +67,38 @@ class Cube {
     this.targetRotation.y += amount
   }
 
-  async assignFacet(face: 0 | 1 | 2 | 3 | 4 | 5, url: string) {
-    // httpswwwalramalhocom-2022-01-30-fixed.png
-    const image = new Image();
-    image.src = <string>await toDataURL(url)
-    let texture = new THREE.Texture();
-    texture.image = image;
-    image.onload = function () {
-      texture.needsUpdate = true;
-    };
-    image.onload = () =>  { texture.needsUpdate = true };
+  // axis is shifted (4th face is first, then (left rotation) 1st, 5th and 0th)
+  getFrontFace(): CubeFace {
+    let y = (-Math.PI / 4) + (this.targetRotation.y + Math.PI / 2) % (2*Math.PI);
+    if (y >= 0) {
+      if (y < Math.PI / 2) {
+        return this.faces[4]
+      } else if (y < Math.PI) {
+        return this.faces[1]
+      } else if (y < 3 * Math.PI / 2) {
+        return this.faces[5]
+      } else if (y < 2 * Math.PI) {
+        return this.faces[0]
+      }
+    } else {
+      if (y >- Math.PI / 2) {
+        return this.faces[0]
+      } else if (y >- Math.PI) {
+        return this.faces[5]
+      } else if (y >- 3 * Math.PI / 2) {
+        return this.faces[1]
+      } else if (y >- 2 * Math.PI) {
+        return this.faces[4]
+      }
+    }
+  }
 
-    console.log(this.materialArray)
-    this.materialArray[face] = new THREE.MeshBasicMaterial({map: texture});
-    console.log(this.materialArray)
+  async assignFacet(face: 0 | 1 | 2 | 3 | 4 | 5, url: string) {
+    this.faces[face] = new CubeFace(url)
+    // httpswwwalramalhocom-2022-01-fixed.png
+    await this.faces[face].computeTexture()
+
+    this.materialArray[face] = new THREE.MeshBasicMaterial({map: this.faces[face].texture});
     this.mesh.material = this.materialArray
   }
 

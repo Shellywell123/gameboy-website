@@ -41,10 +41,12 @@ function init() {
   createLights();
 
 
+  cube = new Cube(glScene, 800)
+  cube.assignFacet(4, 'https://www.alramalho.com')
+  cube.assignFacet(1, 'https://www.ipo-track.com')
+  cube.assignFacet(5, 'https://www.alramalho.com')
+  cube.assignFacet(0, 'https://www.ipo-track.com')
 
-  cube = new Cube(glScene,800)
-  cube.assignFacet(0, `https://alramalhosandbox.s3.eu-west-1.amazonaws.com/screenshots/httpswwwalramalhocom-${new Date().toJSON().slice(0,7)}-fixed.png`)
-  cube.assignFacet(4, `https://alramalhosandbox.s3.eu-west-1.amazonaws.com/screenshots/httpswwwipotrackcom-${new Date().toJSON().slice(0,7)}-fixed.png`)
 
   createControls();
 
@@ -52,8 +54,8 @@ function init() {
 }
 
 function createLights() {
-  const light = new THREE.SpotLight( 0xffffff );
-  light.position.set( 600, 0, 600 );
+  const light = new THREE.SpotLight(0xffffff);
+  light.position.set(600, 0, 600);
   // const helper = new THREE.CameraHelper( light.shadow.camera )
 
   light.castShadow = true;
@@ -123,9 +125,7 @@ function createControls() {
             )
             break
           case "selected":
-            console.error("not implemented")
-            // window.location.href = cube.getFrontFace().url;
-            // STATE = "idle"
+            loadFrame(cube.getFrontFace().url)
             break
         }
         break
@@ -162,6 +162,24 @@ function update() {
 }
 
 init();
+
+function loadFrame(url: string) {
+
+
+  const iframe = document.createElement('iframe');
+  iframe.src = url;
+  const headerHeight = '4rem'
+  iframe.style.width = '100vw';
+  iframe.style.height = `calc(100vh - ${headerHeight})`;
+  iframe.style.display = 'fixed';
+  iframe.style.marginTop = headerHeight;
+  iframe.style.zIndex = '1000';
+
+  container.prepend(iframe);
+
+  glRenderer.domElement.style.display = 'none'
+  cssRenderer.domElement.style.display = 'none'
+}
 
 function onWindowResize() {
   camera.object.aspect = container.clientWidth / container.clientHeight;
