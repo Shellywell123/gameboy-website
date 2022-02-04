@@ -1,10 +1,10 @@
 import * as THREE from 'three'
 
 class CubeFace {
-  url: string
+  url: URL
   texture: THREE.Texture
 
-  constructor(url: string){
+  constructor(url: URL){
     this.url = url
   }
 
@@ -20,10 +20,10 @@ class CubeFace {
     this.texture = texture
   }
 
-  getImageUrl(url: string) {
+  getImageUrl(url: URL) {
     // todo make env var
     const bucket = "alramalhosandbox"
-    return `https://${bucket}.s3.eu-west-1.amazonaws.com/screenshots/${url.replace(/\W/g, '')}-${new Date().toJSON().slice(0,7)}-fixed.png`
+    return `https://${bucket}.s3.eu-west-1.amazonaws.com/screenshots/${url.toString().replace(/\W/g, '')}-${new Date().toJSON().slice(0,7)}-fixed.png`
   }
 }
 
@@ -93,7 +93,7 @@ class Cube {
     }
   }
 
-  async assignFacet(face: 0 | 1 | 2 | 3 | 4 | 5, url: string) {
+  async assignFacet(face: 0 | 1 | 2 | 3 | 4 | 5, url: URL) {
     this.faces[face] = new CubeFace(url)
     // httpswwwalramalhocom-2022-01-fixed.png
     await this.faces[face].computeTexture()

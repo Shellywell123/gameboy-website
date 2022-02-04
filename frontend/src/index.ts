@@ -8,6 +8,7 @@ import Camera from "./camera";
 const gpu = getGPUTier();
 console.log(gpu);
 
+
 let container;
 let camera: Camera;
 let glRenderer: THREE.WebGLRenderer;
@@ -15,8 +16,9 @@ let cssRenderer: CSS3DRenderer;
 let glScene: THREE.Scene;
 let cssScene: THREE.Scene;
 let cube: Cube;
+let iframe: HTMLIFrameElement
 
-let STATE: "idle" | "selected" = "idle"
+let STATE: "idle" | "selected" | "frame" = "idle"
 
 function init() {
 
@@ -42,10 +44,10 @@ function init() {
 
 
   cube = new Cube(glScene, 800)
-  cube.assignFacet(4, 'https://www.alramalho.com')
-  cube.assignFacet(1, 'https://www.ipo-track.com')
-  cube.assignFacet(5, 'https://www.alramalho.com')
-  cube.assignFacet(0, 'https://www.ipo-track.com')
+  cube.assignFacet(4, new URL('https://www.alramalho.com'))
+  cube.assignFacet(1, new URL('https://www.ipo-track.com'))
+  cube.assignFacet(5, new URL('https://www.alramalho.com'))
+  cube.assignFacet(0, new URL('https://www.ipo-track.com'))
 
 
   createControls();
@@ -123,9 +125,13 @@ function createControls() {
               new THREE.Vector3(0, 0, camera.object.position.z / 2),
               new THREE.Euler(0, camera.object.rotation.y, camera.object.rotation.z)
             )
+
             break
           case "selected":
+            history.pushState({}, "", cube.getFrontFace().url.host)
             loadFrame(cube.getFrontFace().url)
+
+            STATE = 'frame'
             break
         }
         break
@@ -151,6 +157,7 @@ function update() {
 
     case "selected":
       break
+
   }
 
   cube.update()
@@ -163,22 +170,53 @@ function update() {
 
 init();
 
-function loadFrame(url: string) {
+window.onpopstate = function (event) {
+  iframe.remove()
+  STATE = 'selected'
 
+  glRenderer.domElement.style.display = 'block'
+  cssRenderer.domElement.style.display = 'block'
+}
 
-  const iframe = document.createElement('iframe');
-  iframe.src = url;
-  const headerHeight = '4rem'
+function loadFrame(url: URL) {
+
+  iframe = document.createElement('iframe');
+  iframe.src = url.toString();
   iframe.style.width = '100vw';
-  iframe.style.height = `calc(100vh - ${headerHeight})`;
+  iframe.style.height = `calc(100vh)`;
   iframe.style.display = 'fixed';
-  iframe.style.marginTop = headerHeight;
   iframe.style.zIndex = '1000';
 
   container.prepend(iframe);
 
   glRenderer.domElement.style.display = 'none'
   cssRenderer.domElement.style.display = 'none'
+
+
+  // const controls = document.createElement('controls');
+  // controls.innerHTML = `
+  //       <style>
+  //         div {
+  //           color: #37352f;
+  //           background-color: #f7f6f2;
+  //           padding: 1rem;
+  //           position: absolute;
+  //           z-index: 10;
+  //           top: 0;
+  //           right: 0;
+  //           font-family: ui-sans-serif;
+  //         }
+  //         a {
+  //           text-decoration: underline;
+  //         }
+  //       </style>
+  //       <div>
+  //         <a href="javascript:cube.getFrontFace().url">Open real webpage &rAarr;</a>
+  //       </div>
+  //     `;
+  //
+  // iframe.prepend(controls)
+
 }
 
 function onWindowResize() {
