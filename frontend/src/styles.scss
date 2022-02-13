@@ -30,6 +30,32 @@ h1 {
   font-size: 6.2rem;
 }
 
+.popup{
+  cursor: pointer;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: #FBCA1F;
+  font-family: Roboto, sans-serif;
+  color: #000;
+  padding: 0.6em 1.3em;
+  font-weight: 900;
+  font-size: 2rem;
+  border: 3px solid black;
+  border-radius: 0.4em;
+  box-shadow: 0.1em 0.1em;
+}
+
+.popup:hover {
+  transform: translate(-0.05em, -0.05em);
+  box-shadow: 0.15em 0.15em;
+}
+
+.popup:active {
+  transform: translate(0.05em, 0.05em);
+  box-shadow: 0.05em 0.05em;
+}
+
 
 .gameboy {
   display: flex;

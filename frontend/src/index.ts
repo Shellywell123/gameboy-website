@@ -17,6 +17,7 @@ let glScene: THREE.Scene;
 let cssScene: THREE.Scene;
 let cube: Cube;
 let iframe: HTMLIFrameElement
+let popup
 
 let STATE: "idle" | "selected" | "frame" = "idle"
 
@@ -244,12 +245,17 @@ function update() {
 
 init();
 
-window.onpopstate = function () {
+function exitIframe() {
   iframe.remove()
   STATE = 'selected'
+  popup.style.display = 'none'
 
   glRenderer.domElement.style.display = 'block'
   cssRenderer.domElement.style.display = 'block'
+}
+
+window.onpopstate = function () {
+  exitIframe();
 }
 
 function loadFrame(url: URL) {
@@ -266,30 +272,13 @@ function loadFrame(url: URL) {
   glRenderer.domElement.style.display = 'none'
   cssRenderer.domElement.style.display = 'none'
 
+  popup = document.createElement('div')
+  popup.onclick = () => open(url.toString())
+  popup.className = 'popup'
+  popup.style.display = 'block';
+  popup.innerHTML = `Visit ${url.host} &rarr;`
 
-  // const controls = document.createElement('controls');
-  // controls.innerHTML = `
-  //       <style>
-  //         div {
-  //           color: #37352f;
-  //           background-color: #f7f6f2;
-  //           padding: 1rem;
-  //           position: absolute;
-  //           z-index: 10;
-  //           top: 0;
-  //           right: 0;
-  //           font-family: ui-sans-serif;
-  //         }
-  //         a {
-  //           text-decoration: underline;
-  //         }
-  //       </style>
-  //       <div>
-  //         <a href="javascript:cube.getFrontFace().url">Open real webpage &rAarr;</a>
-  //       </div>
-  //     `;
-  //
-  // iframe.prepend(controls)
+  document.body.appendChild(popup)
 
 }
 
