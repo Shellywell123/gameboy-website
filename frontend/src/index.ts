@@ -51,7 +51,7 @@ function init() {
   cube.assignFacet(0, new URL('https://www.ipo-track.com'))
 
 
-  createControls();
+  createGameboy();
 
   update()
 }
@@ -102,6 +102,12 @@ function createCssRenderer() {
   return cssRenderer;
 }
 
+function playSound() {
+  // @ts-ignore
+  const audio: HTMLAudioElement = document.getElementById("audio");
+  audio.play();
+}
+
 export function fireControl(command: "left" | "right" | "back" | "enter") {
   switch (command) {
     case "left":
@@ -150,7 +156,8 @@ export function fireControl(command: "left" | "right" | "back" | "enter") {
   }
 }
 
-function createControls() {
+
+function createGameboy() {
 
   // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
   let vh = window.innerHeight * 0.01;
@@ -162,7 +169,7 @@ function createControls() {
 
   function createButton(fnCallback: () => void, innerHTML: string, extraClassNames?: string[]) {
     const button = document.createElement('button')
-    button.onclick = fnCallback
+    button.onclick = () => { fnCallback(); playSound() }
     button.innerHTML = innerHTML
     if (extraClassNames !== undefined) {
       button.className = extraClassNames.join(' ')
@@ -170,8 +177,11 @@ function createControls() {
     return button
   }
 
+  const displayWrapper = document.createElement('div')
+  displayWrapper.className = 'display-wrapper';
   const display = document.createElement('div')
   display.className = 'display';
+  displayWrapper.appendChild(display)
 
   const controls = document.createElement('div')
   controls.className = 'controls';
@@ -179,7 +189,7 @@ function createControls() {
   const gameboy = document.createElement('div')
   gameboy.className = 'gameboy'
 
-  gameboy.appendChild(display)
+  gameboy.appendChild(displayWrapper)
   gameboy.appendChild(controls)
 
   const header = document.createElement('div')
