@@ -86,6 +86,8 @@ function createGlRenderer() {
   glRenderer.shadowMap.enabled = true
   glRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
+  glRenderer.setPixelRatio(0.5)
+
   return glRenderer;
 }
 
