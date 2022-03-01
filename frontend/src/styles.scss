@@ -242,16 +242,7 @@ h1 {
   box-shadow: 0 0 0 10rem var(--gameboyColor);
   border-radius: 6rem;
   height: 100%;
-
-  //::after {
-  //  content: '';
-  //  border: 2rem solid var(--gameboyColor;
-  //  position: fixed;
-  //  top: 0;
-  //  left: 0;
-  //  height: inherit;
-  //  width: inherit;
-  //}
+  pointer-events: none;
 }
 
 .display {
