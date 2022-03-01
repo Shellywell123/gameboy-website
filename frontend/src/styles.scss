@@ -2,6 +2,7 @@
 :root {
   --gameboyColor: #f2ae00;
   --gameboyMaxWidth: 768px;
+  --displayMargin: 2rem;
 }
 
 html {
@@ -37,6 +38,11 @@ a {
 
 a:hover {
   color: purple;
+}
+
+canvas {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 #scene-container {
@@ -89,6 +95,8 @@ h1 {
   height: calc(var(--vh, 1vh) * 100);
   pointer-events: none;
   overflow: hidden;
+  border-left: 3px solid #2c313e;
+  border-right: 3px solid #2c313e;
 
 }
 
@@ -236,9 +244,8 @@ h1 {
 }
 
 .display-wrapper {
-  overflow: hidden;
   box-sizing: border-box;
-  border: 2rem solid var(--gameboyColor);
+  border: var(--displayMargin) solid var(--gameboyColor);
   box-shadow: 0 0 0 10rem var(--gameboyColor);
   border-radius: 6rem;
   height: 100%;
@@ -248,7 +255,7 @@ h1 {
 .display {
   box-sizing: border-box;
   position: relative;
-  border: 2rem solid #23252d;
+  border: var(--displayMargin) solid #23252d;
   border-radius: 4rem;
   border-bottom: 4rem solid #23252d;
   height: 100%;
@@ -267,17 +274,17 @@ h1 {
     background-color: #23252d;
   }
 
-  .header {
-    position: absolute;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    bottom: -3.6rem;
+}
 
-    svg {
-      display: block;
-      height: 2.5rem;
-    }
+.header {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  margin-top: -3.5rem;
+  width: calc(100% - var(--displayMargin)*2);
+  svg {
+    display: block;
+    height: 2.5rem;
   }
 }
 
@@ -328,16 +335,4 @@ h1 {
     margin-right: 1rem;
     top: 15px;
   }
-}
-
-.gameboy-wrapper {
-  background: transparent;
-}
-
-
-.gameboy-left-margin, .gameboy-right-margin {
-  height: 100vh;
-  width: calc((100vw - var(--gameboyMaxWidth)) / 2);
-  background: #2c313e;
-  margin: 0;
 }

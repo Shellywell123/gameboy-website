@@ -38,7 +38,7 @@ function init() {
     window.innerWidth / window.innerHeight,
     1,
     10000,
-    new THREE.Vector3(600, 0, 3000),
+    new THREE.Vector3(0, 400, 3000),
     new THREE.Euler(-Math.PI / 16, 0, 0)
   )
   createLights();
@@ -132,7 +132,7 @@ export function fireControl(command: Action) {
             cube.rotateOverYAxis(-leftover)
           }
           camera.move(
-            new THREE.Vector3(400, -300, camera.object.position.z / 1.3),
+            new THREE.Vector3(0, 0, camera.object.position.z / 2),
             new THREE.Euler(0, camera.object.rotation.y, camera.object.rotation.z)
           )
 
