@@ -26,12 +26,9 @@ function init() {
   container = document.querySelector("#scene-container");
 
   glRenderer = createGlRenderer();
-  cssRenderer = createCssRenderer();
   glScene = new THREE.Scene();
-  cssScene = new THREE.Scene();
 
-  document.body.appendChild(cssRenderer.domElement);
-  cssRenderer.domElement.appendChild(glRenderer.domElement);
+  container.appendChild(glRenderer.domElement);
 
   camera = new Camera(
     45,
@@ -91,18 +88,6 @@ function createGlRenderer() {
   return glRenderer;
 }
 
-function createCssRenderer() {
-
-  var cssRenderer = new CSS3DRenderer();
-
-  cssRenderer.setSize(window.innerWidth, window.innerHeight);
-
-  cssRenderer.domElement.style.position = 'absolute';
-  glRenderer.domElement.style.zIndex = 0;
-  cssRenderer.domElement.style.top = 0;
-
-  return cssRenderer;
-}
 
 function playSound() {
   // @ts-ignore
@@ -251,7 +236,6 @@ function update() {
   camera.update()
 
   glRenderer.render(glScene, camera.object);
-  cssRenderer.render(cssScene, camera.object);
   requestAnimationFrame(update);
 }
 
@@ -263,7 +247,7 @@ function exitIframe() {
   popup.style.display = 'none'
 
   glRenderer.domElement.style.display = 'block'
-  cssRenderer.domElement.style.display = 'block'
+  // cssRenderer.domElement.style.display = 'block'
 }
 
 window.onpopstate = function () {
@@ -282,7 +266,6 @@ function loadFrame(url: URL) {
   container.prepend(iframe);
 
   glRenderer.domElement.style.display = 'none'
-  cssRenderer.domElement.style.display = 'none'
 
   popup = document.createElement('div')
   popup.onclick = () => open(url.toString())
