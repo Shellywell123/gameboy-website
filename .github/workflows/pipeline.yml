@@ -46,7 +46,7 @@ jobs:
           ls -l
           cd ./backend/cdk/lambda-stack/selenium
           chmod +x ./build.sh
-          ./build.sh
+          sh build.sh
 
           aws s3 cp layer.zip s3://alramalhosandbox/src/SeleniumChromiumLayer.zip
 
