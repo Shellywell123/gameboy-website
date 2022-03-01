@@ -24,6 +24,7 @@ let STATE: "idle" | "selected" | "frame" = "idle"
 function init() {
 
   container = document.querySelector("#scene-container");
+  container.className = 'sepia'
 
   glRenderer = createGlRenderer();
   glScene = new THREE.Scene();
@@ -83,7 +84,6 @@ function createGlRenderer() {
   glRenderer.shadowMap.enabled = true
   glRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-  glRenderer.setPixelRatio(0.5)
 
   return glRenderer;
 }
@@ -112,6 +112,7 @@ export function fireControl(command: "left" | "right" | "back" | "enter") {
           break
         case "frame":
           history.back()
+          container.className = 'sepia'
           break
       }
       break
@@ -137,6 +138,7 @@ export function fireControl(command: "left" | "right" | "back" | "enter") {
           loadFrame(cube.getFrontFace().url)
 
           STATE = 'frame'
+          container.className = ''
           break
       }
       break
