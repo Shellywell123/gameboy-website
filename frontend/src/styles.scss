@@ -18,6 +18,10 @@ body {
   background: transparent;
 }
 
+iframe {
+  pointer-events: auto;
+}
+
 .sepia {
   -webkit-filter: sepia(20%);
   -moz-filter: sepia(20%);

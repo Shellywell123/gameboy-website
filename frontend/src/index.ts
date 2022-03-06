@@ -46,10 +46,10 @@ function init() {
   createLights();
 
   cube = new Cube(glScene, 800)
-  cube.assignFacet(4, new URL('https://www.alramalho.com'), "test")
-  cube.assignFacet(1, new URL('https://www.ipo-track.com'), "orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse")
-  cube.assignFacet(5, new URL('https://www.alramalho.com'), "sou")
-  cube.assignFacet(0, new URL('https://www.ipo-track.com'), "lindo")
+  cube.assignFacet(4, new URL('https://hire.alramalho.com'), "SHOWCASE: Page for hiring and getting in contact with me.")
+  cube.assignFacet(1, new URL('https://www.ipo-track.com'), "OPEN-SOURCE: Subscribe to IPOs for free.")
+  cube.assignFacet(5, new URL('https://blog.alramalho.com'), "BLOG: Personal Software Development & Testing blog")
+  cube.assignFacet(0, new URL('https://radialcor.pt'), "SHOWCASE: E-commerce site done back in 2020")
 
 
   createGameboy();
