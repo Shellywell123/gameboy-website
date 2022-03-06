@@ -211,7 +211,6 @@ export function fireControl(command: Action) {
 
 
     for (let i = 0; i < lastMoves.length; i++) {
-      console.log(lastMoves[i] + ' == ' + konamiCode[i])
       if (lastMoves[i] != konamiCode[i]) {
         return false
       }
