@@ -3,9 +3,11 @@ import * as THREE from 'three'
 class CubeFace {
   url: URL
   texture: THREE.Texture
+  description: string
 
-  constructor(url: URL){
+  constructor(url: URL, description: string){
     this.url = url
+    this.description = description
   }
 
   async computeTexture(){
@@ -93,8 +95,8 @@ class Cube {
     }
   }
 
-  async assignFacet(face: 0 | 1 | 2 | 3 | 4 | 5, url: URL) {
-    this.faces[face] = new CubeFace(url)
+  async assignFacet(face: 0 | 1 | 2 | 3 | 4 | 5, url: URL, description: string) {
+    this.faces[face] = new CubeFace(url, description)
     // httpswwwalramalhocom-2022-01-fixed.png
     await this.faces[face].computeTexture()
 

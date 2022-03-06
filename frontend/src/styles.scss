@@ -81,6 +81,30 @@ h1 {
   box-shadow: 0.05em 0.05em;
 }
 
+.info-banner {
+  position: absolute;
+  bottom: 0;
+  background: rgba(113, 155, 175, 0.7);
+  border-top: 0.5rem solid #2c313e;
+  border-radius: 10px;
+  font-family: monospace, sans-serif;
+  color: white;
+  transition: 1s;
+  width: 100%;
+  z-index: 10;
+  transform: translateY(100%);
+
+  .title {
+    background: rgba(113, 155, 175, 0.7);
+    padding: 0.4rem;
+
+  }
+
+  .content {
+    padding: 0.4rem;
+
+  }
+}
 
 .gameboy {
   z-index: 10;

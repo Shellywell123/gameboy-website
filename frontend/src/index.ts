@@ -45,17 +45,19 @@ function init() {
   camera.object.updateProjectionMatrix();
   createLights();
 
-
   cube = new Cube(glScene, 800)
-  cube.assignFacet(4, new URL('https://www.alramalho.com'))
-  cube.assignFacet(1, new URL('https://www.ipo-track.com'))
-  cube.assignFacet(5, new URL('https://www.alramalho.com'))
-  cube.assignFacet(0, new URL('https://www.ipo-track.com'))
+  cube.assignFacet(4, new URL('https://www.alramalho.com'), "test")
+  cube.assignFacet(1, new URL('https://www.ipo-track.com'), "orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse")
+  cube.assignFacet(5, new URL('https://www.alramalho.com'), "sou")
+  cube.assignFacet(0, new URL('https://www.ipo-track.com'), "lindo")
 
 
   createGameboy();
+  createInfoBanner()
 
   update()
+
+  setInterval(updateEverySecond, 1000)
 }
 
 function createLights() {
@@ -100,8 +102,46 @@ function playSound() {
   audio.play();
 }
 
+function createInfoBanner() {
+  const banner = document.createElement('div')
+  const bannerTitle = document.createElement('p')
+  const bannerContent = document.createElement('p')
+  banner.className = 'info-banner'
+  bannerTitle.className = 'title'
+  bannerContent.className = 'content'
+  banner.appendChild(bannerTitle)
+  banner.appendChild(bannerContent)
+
+  document.getElementsByClassName('display')[0].appendChild(banner)
+}
+
+function hideInfoBanner() {
+  const banner: any = document.getElementsByClassName('info-banner')[0]
+  banner.style.transform = 'translateY(100%)'
+}
+
+function showInfoBanner() {
+  const banner: any = document.getElementsByClassName('info-banner')[0]
+  banner.style.transform = 'translateY(0)'
+  updateInfoBanner()
+}
+
+function updateInfoBanner() {
+  const banner = document.getElementsByClassName('info-banner')[0]
+  const bannerTitle = banner.getElementsByClassName('title')[0]
+  const bannerContent = banner.getElementsByClassName('content')[0]
+  bannerTitle.textContent = cube.getFrontFace().url.toString()
+  bannerContent.textContent = cube.getFrontFace().description
+}
+
 export function fireControl(command: Action) {
   switch (command) {
+    case "up":
+      showInfoBanner()
+      break
+    case "down":
+      hideInfoBanner()
+      break
     case "left":
       cube.rotateOverYAxis(-Math.PI / 2)
       break
@@ -113,6 +153,7 @@ export function fireControl(command: Action) {
         case "selected":
           cube.rotateOverYAxis(0)
           camera.reset()
+          hideInfoBanner()
           STATE = "idle"
           break
         case "frame":
@@ -246,6 +287,9 @@ function createGameboy() {
         break
     }
   });
+}
+function updateEverySecond() {
+  updateInfoBanner()
 }
 
 function update() {
