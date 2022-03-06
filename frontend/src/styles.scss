@@ -7,6 +7,7 @@
 
 html {
   background: bisque;
+  touch-action: none;
 }
 
 body {
@@ -32,7 +33,6 @@ iframe {
 h1 {
   position: absolute;
   width: 100%;
-  z-index: 1;
   font-size: 1.5rem;
 }
 
@@ -45,8 +45,13 @@ a:hover {
 }
 
 canvas {
+  display: block;
   max-width: 100%;
   max-height: 100%;
+  box-sizing: border-box;
+  position: absolute !important;
+  top: 0;
+  left: 0;
 }
 
 #scene-container {
@@ -86,6 +91,7 @@ h1 {
 }
 
 .info-banner {
+  z-index: 2;
   position: absolute;
   bottom: 0;
   background: rgba(113, 155, 175, 0.7);
@@ -95,7 +101,6 @@ h1 {
   color: white;
   transition: 1s;
   width: 100%;
-  z-index: 10;
   transform: translateY(100%);
 
   .title {
@@ -111,7 +116,7 @@ h1 {
 }
 
 .gameboy {
-  z-index: 10;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -129,10 +134,11 @@ h1 {
 }
 
 .controls {
+  z-index: 3;
   position: relative;
   width: 100%;
   box-sizing: border-box;
-  padding: 3rem 3rem;
+  padding: 2rem 1.5rem 3rem 1.5rem;
   display: flex;
   justify-content: space-between;
   pointer-events: auto;
@@ -144,11 +150,10 @@ h1 {
   background: transparent;
   position: relative;
   display: inline-block;
-  width: 10rem;
-  height: 10rem;
-  z-index: 5;
-  font-size: 3rem;
-  line-height: 7rem;
+  width: 8rem;
+  height: 8rem;
+  font-size: 2.5rem;
+  line-height: 2.5rem;
 
   > * {
     width: 33%;
@@ -238,13 +243,13 @@ h1 {
   .middle {
     top: 33%;
     left: 33%;
-    z-index: -5;
+    margin: 4px;
 
     &::after {
       content: '';
       position: absolute;
-      top: 20%;
-      left: 20%;
+      top: 15%;
+      left: 15%;
       display: inline-block;
       border: 1px solid #6e737a;
       background: linear-gradient(to bottom, #6d7075 0%, #6d7075 30%, #23272f 70%, #23272f 100%);
@@ -272,6 +277,7 @@ h1 {
 }
 
 .display-wrapper {
+  z-index: 2;
   box-sizing: border-box;
   border: var(--displayMargin) solid var(--gameboyColor);
   box-shadow: 0 0 0 10rem var(--gameboyColor);
@@ -281,6 +287,7 @@ h1 {
 }
 
 .display {
+  z-index: 3;
   box-sizing: border-box;
   position: relative;
   border: var(--displayMargin) solid #23252d;
@@ -328,10 +335,10 @@ h1 {
 
     padding: 0;
     position: relative;
-    font-size: 3rem;
-    line-height: 5rem;
-    width: 5rem;
-    height: 5rem;
+    font-size: 2.5rem;
+    line-height: 3.75rem;
+    width: 3.75rem;
+    height: 3.75rem;
     border-radius: 50%;
     background-color: #2c313e;
     border: 0;
