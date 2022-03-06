@@ -41,6 +41,8 @@ function init() {
     new THREE.Vector3(0, 400, 3000),
     new THREE.Euler(-Math.PI / 16, 0, 0)
   )
+  camera.object.aspect = container.clientWidth / container.clientHeight;
+  camera.object.updateProjectionMatrix();
   createLights();
 
 
@@ -216,25 +218,31 @@ function createGameboy() {
     switch (event.key) {
       case "ArrowLeft":
         fireControl('left')
+        playSound()
         break;
       case "ArrowRight":
         fireControl('right')
+        playSound()
         break;
       case "ArrowUp":
         fireControl('up')
+        playSound()
         break;
       case "ArrowDown":
         fireControl('down')
+        playSound()
         break;
       case "Backspace":
       case "B":
       case "b":
         fireControl("back")
+        playSound()
         break
       case "Enter":
       case "A":
       case "a":
         fireControl("enter")
+        playSound()
         break
     }
   });
