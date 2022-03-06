@@ -49,7 +49,7 @@ function init() {
   cube.assignFacet(4, new URL('https://hire.alramalho.com'), "SHOWCASE: Page for hiring and getting in contact with me.")
   cube.assignFacet(1, new URL('https://www.ipo-track.com'), "OPEN-SOURCE: Subscribe to IPOs for free.")
   cube.assignFacet(5, new URL('https://blog.alramalho.com'), "BLOG: Personal Software Development & Testing blog")
-  cube.assignFacet(0, new URL('https://radialcor.pt'), "SHOWCASE: E-commerce site done back in 2020")
+  cube.assignFacet(0, new URL('https://www.radialcor.pt'), "SHOWCASE: E-commerce site done back in 2020")
 
 
   createGameboy();
