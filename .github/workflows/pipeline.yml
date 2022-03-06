@@ -52,4 +52,6 @@ jobs:
 
       - name: Deploy-Lambda
         run: |
+          cd ./backend
+          yarn
           cdk deploy --profile portfolio
