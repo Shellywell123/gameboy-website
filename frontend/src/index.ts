@@ -9,7 +9,16 @@ import {Queue} from "./queue";
 const gpu = getGPUTier();
 console.log(gpu);
 
-type Action = "left" | "right" | "back" | "enter" | "up" | "down" | "middle"
+type Action =
+  "left"
+  | "right"
+  | "back"
+  | "enter"
+  | "up"
+  | "down"
+  | "middle"
+  | "select"
+  | "start"
 
 const gameboyColors = [`#4f50db`, `#a7f700`, `#f12d48`, `#08b6d5`]
 
@@ -113,6 +122,14 @@ function showInfoBanner() {
   updateInfoBanner()
 }
 
+function toggleHelpMenu() {
+  const banner: any = document.getElementsByClassName('help-menu')[0]
+  banner.style.display == "none"
+    ? banner.style.display = 'block'
+    : banner.style.display = 'none'
+}
+
+
 function updateInfoBanner() {
   const banner = document.getElementsByClassName('info-banner')[0]
   const bannerTitle = banner.getElementsByClassName('title')[0]
@@ -139,6 +156,8 @@ function triggerKonami() {
 }
 
 export function fireControl(command: Action) {
+  playSound()
+
   switch (command) {
     case "up":
       showInfoBanner()
@@ -193,6 +212,11 @@ export function fireControl(command: Action) {
           break
       }
       break
+    case "start":
+      toggleHelpMenu()
+      break
+    case "select":
+      break
   }
   last10Moves.enqueue(command)
 
@@ -239,7 +263,10 @@ function createGameboy() {
 
   function createButton(fnCallback: () => void, innerHTML: string, extraClassNames?: string[]) {
     const button = document.createElement('div')
-    button.onclick = () => { fnCallback(); playSound() }
+    button.onclick = () => {
+      fnCallback();
+      playSound()
+    }
     button.innerHTML = innerHTML
     if (extraClassNames !== undefined) {
       button.className = extraClassNames.join(' ')
@@ -257,39 +284,47 @@ function createGameboy() {
   ABWrapper.appendChild(createButton(() => fireControl("back"), '<span>B</span>', ['b']))
   ABWrapper.appendChild(createButton(() => fireControl("enter"), '<span>A</span>', ['a']))
 
+  const StartSelectWrapper = document.getElementsByClassName('start-select')[0]
+  StartSelectWrapper.appendChild(createButton(() => fireControl("select"), 'SELECT', ['select']))
+  StartSelectWrapper.appendChild(createButton(() => fireControl("start"), 'START', ['start']))
+
+
   document.addEventListener('keydown', function (event) {
     switch (event.key) {
       case "ArrowLeft":
         fireControl('left')
-        playSound()
         break;
       case "ArrowRight":
         fireControl('right')
-        playSound()
         break;
       case "ArrowUp":
         fireControl('up')
-        playSound()
         break;
       case "ArrowDown":
         fireControl('down')
-        playSound()
         break;
       case "Backspace":
       case "B":
       case "b":
         fireControl("back")
-        playSound()
         break
       case "Enter":
       case "A":
       case "a":
         fireControl("enter")
-        playSound()
+        break
+      case "Z":
+      case "z":
+        fireControl("select")
+        break
+      case "X":
+      case "x":
+        fireControl("start")
         break
     }
   });
 }
+
 function updateEverySecond() {
   updateInfoBanner()
 }

@@ -18,14 +18,33 @@
 <div class="gameboy">
   <div class="display-wrapper">
     <div class="display sepia">
+      <div class="help-menu">
+        <div class="title">Help menu</div>
+        <div class="content">
+          <h3>Controls</h3>
+          <p>&uarr; — Show info banner</p>
+          <p>&darr; — Hide info banner</p>
+          <p>&larr; — Rotate cube left</p>
+          <p>&rarr; — Rotate cube right</p>
+          <p>A — Select</p>
+          <p>B — Retrocede</p>
+          <p>Start — Show/hide controls</p>
+          <p>Select — Open CV</p>
+
+          <h3>Desktop Help</h3>
+          <p>Enter = A</p>
+          <p>Backspace = B</p>
+          <p>Z = Select</p>
+          <p>X = Start</p>
+
+
+          <p style="margin-top: 3rem; font-size: 0.5rem">Have fun with konami</p>
+        </div>
+      </div>
       <div class="info-banner">
         <p class="title"></p>
-        <p class="content"></p>
-      </div>
-
-      <div class="help-menu">
-        <p class="title"></p>
-        <p class="content"></p>
+        <p class="content">
+        </p>
       </div>
     </div>
     <div class="header">
@@ -54,8 +73,10 @@
 </div>
 
 <script src="src/index.ts"></script>
-<audio id="button-sound" src="https://alramalhosandbox.s3.eu-west-1.amazonaws.com/mixkit-arcade-game-jump-coin-216.wav"></audio>
-<audio id="route1-pokemon" src="https://alramalhosandbox.s3.eu-west-1.amazonaws.com/pokemon-route1.wav"></audio>
+<audio id="button-sound"
+       src="https://alramalhosandbox.s3.eu-west-1.amazonaws.com/mixkit-arcade-game-jump-coin-216.wav"></audio>
+<audio id="route1-pokemon"
+       src="https://alramalhosandbox.s3.eu-west-1.amazonaws.com/pokemon-route1.wav"></audio>
 
 </body>
 </html>
