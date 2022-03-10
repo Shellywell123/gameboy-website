@@ -2,7 +2,7 @@
 :root {
   --gameboyColor: #f2ae00;
   --gameboyMaxWidth: 768px;
-  --displayMargin: 1.25rem;
+  --displayMargin: 3rem;
 }
 
 html {
@@ -24,10 +24,10 @@ iframe {
 }
 
 .sepia {
-  -webkit-filter: sepia(20%);
-  -moz-filter: sepia(20%);
-  -ms-filter: sepia(20%);
-  filter: sepia(20%)
+  -webkit-filter: sepia(40%);
+  -moz-filter: sepia(40%);
+  -ms-filter: sepia(40%);
+  filter: sepia(40%)
 }
 
 h1 {
@@ -116,6 +116,7 @@ h1 {
 }
 
 .gameboy {
+  transition: 0.1s;
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -277,9 +278,11 @@ h1 {
 }
 
 .display-wrapper {
+  transition: 0.1s;
   z-index: 2;
   box-sizing: border-box;
-  border: var(--displayMargin) solid var(--gameboyColor);
+  background: var(--gameboyColor);
+  padding: var(--displayMargin);
   box-shadow: 0 0 0 10rem var(--gameboyColor);
   border-radius: 6rem;
   height: 100%;
@@ -296,19 +299,6 @@ h1 {
   height: 100%;
   pointer-events: none;
   overflow: hidden;
-
-  &::before {
-    content: '';
-    display: block;
-    position: absolute;
-    top: calc(100% + 2rem);
-    left: 5px;
-    width: calc(100% - 10px);
-    height: 3rem;
-    border-radius: 50%;
-    background-color: #23252d;
-  }
-
 }
 
 .header {

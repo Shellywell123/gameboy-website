@@ -134,6 +134,23 @@ function updateInfoBanner() {
   bannerContent.textContent = cube.getFrontFace().description
 }
 
+function triggerKonami() {
+  function assignGameboyRandomColor() {
+    document.documentElement.style.setProperty('--gameboyColor', gameboyColors[Math.floor(Math.random() * gameboyColors.length)]);
+  }
+
+  console.log('⭐ Konami ⭐')
+  playSound('route1-pokemon')
+
+  const r = setInterval(() => {
+    assignGameboyRandomColor()
+  }, 200)
+
+  setInterval(() => {
+    clearInterval(r)
+  }, 14000)
+}
+
 export function fireControl(command: Action) {
   switch (command) {
     case "up":
@@ -219,9 +236,7 @@ export function fireControl(command: Action) {
   }
 
   if (checkKonamiCode()) {
-    console.log('⭐ Konami ⭐')
-    document.documentElement.style.setProperty('--gameboyColor', gameboyColors[Math.floor(Math.random() * gameboyColors.length)]);
-    playSound('route1-pokemon')
+    triggerKonami()
   }
 }
 
