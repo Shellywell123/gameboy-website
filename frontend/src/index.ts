@@ -31,7 +31,7 @@ let iframe: HTMLIFrameElement
 let popup
 let last10Moves = new Queue<Action>(10)
 
-let STATE: "idle" | "selected" | "frame" = "idle"
+let STATE: "idle" | "selected" | "frame" | "help-menu" = "idle"
 
 function init() {
 
@@ -123,10 +123,10 @@ function showInfoBanner() {
 }
 
 function toggleHelpMenu() {
-  const banner: any = document.getElementsByClassName('help-menu')[0]
-  banner.style.display == "none"
-    ? banner.style.display = 'block'
-    : banner.style.display = 'none'
+  const helpMenu: any = document.getElementsByClassName('help-menu')[0]
+  helpMenu.style.display == "none" || helpMenu.style.display == ""
+    ? helpMenu.style.display = 'block'
+    : helpMenu.style.display = 'none'
 }
 
 
@@ -184,6 +184,9 @@ export function fireControl(command: Action) {
           container.classList.add('sepia')
 
           break
+        case "help-menu":
+          toggleHelpMenu()
+          break
       }
       break
     case "enter":
@@ -216,6 +219,7 @@ export function fireControl(command: Action) {
       toggleHelpMenu()
       break
     case "select":
+      open("https://alramalhosandbox.s3.eu-west-1.amazonaws.com/Curriculo.pdf")
       break
   }
   last10Moves.enqueue(command)

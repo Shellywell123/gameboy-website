@@ -2,7 +2,7 @@
 :root {
   --gameboyColor: #f2ae00;
   --gameboyMaxWidth: 768px;
-  --displayMargin: 3rem;
+  --displayMargin: 1rem;
 }
 
 html {
@@ -121,7 +121,7 @@ h1 {
   font-family: monospace, sans-serif;
   background: rgba(230, 230, 230, 0.95);
   font-size: 1rem;
-  display: block;
+  display: none;
   position: absolute;
   top:0;
   left: 0;
@@ -438,6 +438,10 @@ h1 {
 
 
 @media only screen and (min-width: 768px){
+  :root {
+    --displayMargin: 3rem;
+  }
+
   .controls {
     padding-left: 4rem;
     padding-right: 4rem;
