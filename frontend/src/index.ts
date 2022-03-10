@@ -46,7 +46,7 @@ function init() {
   createLights();
 
   cube = new Cube(glScene, 800)
-  cube.assignFacet(4, new URL('https://hire.alramalho.com'), "SHOWCASE: Page for hiring and getting in contact with me.")
+  cube.assignFacet(4, new URL('https://hire.alramalho.com'), "SHOWCASE: Page for getting in contact with me with project proposals.")
   cube.assignFacet(1, new URL('https://www.ipo-track.com'), "OPEN-SOURCE: Subscribe to IPOs for free.")
   cube.assignFacet(5, new URL('https://blog.alramalho.com'), "BLOG: Personal Software Development & Testing blog")
   cube.assignFacet(0, new URL('https://www.radialcor.pt'), "SHOWCASE: E-commerce site done back in 2020")
@@ -96,9 +96,9 @@ function createGlRenderer() {
   return glRenderer;
 }
 
-function playSound() {
+function playSound(id: string = "button-sound") {
   // @ts-ignore
-  const audio: HTMLAudioElement = document.getElementById("audio");
+  const audio: HTMLAudioElement = document.getElementById(id);
   audio.play();
 }
 
@@ -221,6 +221,7 @@ export function fireControl(command: Action) {
   if (checkKonamiCode()) {
     console.log('⭐ Konami ⭐')
     document.documentElement.style.setProperty('--gameboyColor', gameboyColors[Math.floor(Math.random() * gameboyColors.length)]);
+    playSound('route1-pokemon')
   }
 }
 
