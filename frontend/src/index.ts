@@ -53,7 +53,6 @@ function init() {
 
 
   createGameboy();
-  createInfoBanner()
 
   update()
 
@@ -102,18 +101,6 @@ function playSound(id: string = "button-sound") {
   audio.play();
 }
 
-function createInfoBanner() {
-  const banner = document.createElement('div')
-  const bannerTitle = document.createElement('p')
-  const bannerContent = document.createElement('p')
-  banner.className = 'info-banner'
-  bannerTitle.className = 'title'
-  bannerContent.className = 'content'
-  banner.appendChild(bannerTitle)
-  banner.appendChild(bannerContent)
-
-  document.getElementsByClassName('display')[0].appendChild(banner)
-}
 
 function hideInfoBanner() {
   const banner: any = document.getElementsByClassName('info-banner')[0]
