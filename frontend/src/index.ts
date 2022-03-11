@@ -19,7 +19,7 @@ type Action =
   | "select"
   | "start"
 
-const gameboyColors = [`#4f50db`, `#a7f700`, `#f12d48`, `#08b6d5`]
+const gameboyColors = [`#4f50db`, `#a7f700`, `#f12d48`, `#08b6d5`, `#f2ae00`]
 
 let container;
 let camera: Camera;
