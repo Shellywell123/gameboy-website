@@ -1,7 +1,6 @@
 import * as THREE from "three"
 import {getGPUTier} from "detect-gpu";
 
-import {CSS3DRenderer} from 'three/examples/jsm/renderers/CSS3DRenderer'
 import Cube from "./cube";
 import Camera from "./camera";
 import {Queue} from "./queue";
@@ -129,6 +128,13 @@ function toggleHelpMenu() {
     : helpMenu.style.display = 'none'
 }
 
+function toggleIframeDisclaimer() {
+  const iframeDisclaimer: any = document.getElementsByClassName('iframe-disclaimer')[0]
+  iframeDisclaimer.style.opacity == "0" || iframeDisclaimer.style.opacity == ""
+    ? iframeDisclaimer.style.opacity = '100%'
+    : iframeDisclaimer.style.opacity = '0'
+}
+
 
 function updateInfoBanner() {
   const banner = document.getElementsByClassName('info-banner')[0]
@@ -158,6 +164,8 @@ function triggerKonami() {
 export function fireControl(command: Action) {
   playSound()
 
+
+  // todo: refactor. Instead of doing logic per command do it per state. Much cleaner. Use unique helper function to trigger state change.
   switch (command) {
     case "up":
       showInfoBanner()
@@ -182,6 +190,7 @@ export function fireControl(command: Action) {
         case "frame":
           history.back()
           container.classList.add('sepia')
+          toggleIframeDisclaimer()
 
           break
         case "help-menu":
@@ -209,6 +218,7 @@ export function fireControl(command: Action) {
         case "selected":
           history.pushState({}, "", cube.getFrontFace().url.host)
           loadFrame(cube.getFrontFace().url)
+          toggleIframeDisclaimer()
 
           STATE = 'frame'
           container.classList.remove('sepia')

@@ -90,6 +90,23 @@ h1 {
   box-shadow: 0.05em 0.05em;
 }
 
+.iframe-disclaimer {
+  pointer-events: none;
+  transition: 0.25s;
+  position: absolute;
+  top: auto;
+  bottom: 3rem;
+  left: 0.5rem;
+
+  opacity: 0;
+  z-index: 4;
+  box-shadow: none;
+  height: fit-content;
+  font-size: 1rem;
+
+  background: rgba(158, 216, 218, 0.56);
+}
+
 .info-banner {
   z-index: 2;
   position: absolute;
@@ -314,6 +331,7 @@ h1 {
 }
 
 .display-wrapper {
+  position: relative;
   transition: 0.1s;
   z-index: 2;
   box-sizing: border-box;
@@ -337,6 +355,7 @@ h1 {
 }
 
 .header {
+  z-index: 3;
   position: absolute;
   display: flex;
   justify-content: center;
