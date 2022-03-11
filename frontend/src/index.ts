@@ -216,7 +216,7 @@ export function fireControl(command: Action) {
 
           break
         case "selected":
-          history.pushState({}, "", cube.getFrontFace().url.host)
+          history.pushState({}, "", cube.getFrontFace().url.host.replace(/www.|.com/g, " ").replace('.', '-'))
           loadFrame(cube.getFrontFace().url)
           toggleIframeDisclaimer()
 
