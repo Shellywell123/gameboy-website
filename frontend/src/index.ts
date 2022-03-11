@@ -130,9 +130,14 @@ function toggleHelpMenu() {
 
 function toggleIframeDisclaimer() {
   const iframeDisclaimer: any = document.getElementsByClassName('iframe-disclaimer')[0]
-  iframeDisclaimer.style.opacity == "0" || iframeDisclaimer.style.opacity == ""
-    ? iframeDisclaimer.style.opacity = '100%'
-    : iframeDisclaimer.style.opacity = '0'
+  if (iframeDisclaimer.style.opacity == "0" || iframeDisclaimer.style.opacity == "") {
+    iframeDisclaimer.style.opacity = '100%'
+    setInterval(() => {
+      iframeDisclaimer.style.opacity = '0'
+    }, 4000)
+  } else {
+    iframeDisclaimer.style.opacity = '0'
+  }
 }
 
 
