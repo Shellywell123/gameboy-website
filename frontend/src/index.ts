@@ -128,15 +128,17 @@ function toggleHelpMenu() {
     : helpMenu.style.display = 'none'
 }
 
+let disclaimerPopupId
 function toggleIframeDisclaimer() {
   const iframeDisclaimer: any = document.getElementsByClassName('iframe-disclaimer')[0]
   if (iframeDisclaimer.style.opacity == "0" || iframeDisclaimer.style.opacity == "") {
     iframeDisclaimer.style.opacity = '100%'
-    setInterval(() => {
+    disclaimerPopupId = setInterval(() => {
       iframeDisclaimer.style.opacity = '0'
     }, 4000)
   } else {
     iframeDisclaimer.style.opacity = '0'
+    clearInterval(disclaimerPopupId)
   }
 }
 
