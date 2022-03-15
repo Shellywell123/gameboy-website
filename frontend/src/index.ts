@@ -30,7 +30,7 @@ let iframe: HTMLIFrameElement
 let popup
 let last10Moves = new Queue<Action>(10)
 
-let STATE: "idle" | "selected" | "frame" | "help-menu" = "idle"
+let STATE: "idle" | "selected" | "frame" = "idle"
 
 interface ShowcaseObject {
   url: URL,
@@ -155,11 +155,18 @@ function showInfoBanner() {
   updateInfoBanner()
 }
 
+function isHelpMenuOn() {
+  const helpMenu: any = document.getElementsByClassName('help-menu')[0]
+  return helpMenu.style.display == "block"
+}
+
 function toggleHelpMenu() {
   const helpMenu: any = document.getElementsByClassName('help-menu')[0]
-  helpMenu.style.display == "none" || helpMenu.style.display == ""
-    ? helpMenu.style.display = 'block'
-    : helpMenu.style.display = 'none'
+  if (isHelpMenuOn()) {
+    helpMenu.style.display = 'none'
+  } else {
+    helpMenu.style.display = 'block'
+  }
 }
 
 let disclaimerPopupId
@@ -240,6 +247,7 @@ export function fireControl(command: Action) {
       changeFacets()
       break
     case "back":
+      if (isHelpMenuOn()) toggleHelpMenu();
       switch (STATE) {
         case "selected":
           cube.rotateOverYAxis(0)
@@ -252,9 +260,6 @@ export function fireControl(command: Action) {
           container.classList.add('sepia')
           toggleIframeDisclaimer()
 
-          break
-        case "help-menu":
-          toggleHelpMenu()
           break
       }
       break
