@@ -5,12 +5,12 @@ class CubeFace {
   texture: THREE.Texture
   description: string
 
-  constructor(url: URL, description: string){
+  constructor(url: URL, description: string) {
     this.url = url
     this.description = description
   }
 
-  async computeTexture(){
+  async computeTexture() {
     const image = new Image();
     image.src = <string>await toDataURL(this.getImageUrl(this.url))
     let texture = new THREE.Texture();
@@ -18,14 +18,16 @@ class CubeFace {
     image.onload = function () {
       texture.needsUpdate = true;
     };
-    image.onload = () =>  { texture.needsUpdate = true };
+    image.onload = () => {
+      texture.needsUpdate = true
+    };
     this.texture = texture
   }
 
   getImageUrl(url: URL) {
     // todo make env var
     const bucket = "alramalhosandbox"
-    return `https://${bucket}.s3.eu-west-1.amazonaws.com/screenshots/${url.toString().replace(/\W/g, '')}-${new Date().toJSON().slice(0,7)}-fixed.png`
+    return `https://${bucket}.s3.eu-west-1.amazonaws.com/screenshots/${url.toString().replace(/\W/g, '')}-${new Date().toJSON().slice(0, 7)}-fixed.png`
   }
 }
 
@@ -35,7 +37,7 @@ class Cube {
   readonly side: number
   targetRotation: THREE.Euler
   materialArray: THREE.MeshMaterial[]
-  faces: [CubeFace | null, CubeFace | null, CubeFace | null, CubeFace | null, CubeFace | null, CubeFace | null]
+  faces: [CubeFace | null, CubeFace | null, CubeFace, CubeFace, CubeFace | null, CubeFace | null]
 
   constructor(glScene: THREE.Scene, side: number) {
     this.glScene = glScene
@@ -58,7 +60,14 @@ class Cube {
       this.mesh.rotation.y,
       this.mesh.rotation.z
     )
-    this.faces = [null, null, null, null, null, null]
+    this.faces = [
+      null,
+      null,
+      new CubeFace(new URL('http://www.irrelevant.pt'), 'irrelevant'),
+      new CubeFace(new URL('http://www.irrelevant.pt'), 'irrelevant'),
+      null,
+      null
+    ]
   }
 
   update() {
@@ -69,38 +78,66 @@ class Cube {
     this.targetRotation.y += amount
   }
 
+  getNumberOfAvailableFaces(): number {
+    let count = 6
+      this.faces.forEach(face => {
+        face !== null ? count-- : null
+      })
+    return count
+  }
+
+  getFrontFace(baseRotation: number = this.targetRotation.y): CubeFace {
+    return this.faces[this.getFrontFaceIndex(baseRotation)]
+  }
   // axis is shifted (4th face is first, then (left rotation) 1st, 5th and 0th)
-  getFrontFace(): CubeFace {
-    let y = (-Math.PI / 4) + (this.targetRotation.y + Math.PI / 2) % (2*Math.PI);
+  getFrontFaceIndex(baseRotation: number ): number {
+    let y = (-Math.PI / 4) + (baseRotation + Math.PI / 2) % (2 * Math.PI);
     if (y >= 0) {
       if (y < Math.PI / 2) {
-        return this.faces[4]
+        return 4
       } else if (y < Math.PI) {
-        return this.faces[1]
+        return 1
       } else if (y < 3 * Math.PI / 2) {
-        return this.faces[5]
+        return 5
       } else if (y < 2 * Math.PI) {
-        return this.faces[0]
+        return 0
       }
     } else {
-      if (y >- Math.PI / 2) {
-        return this.faces[0]
-      } else if (y >- Math.PI) {
-        return this.faces[5]
-      } else if (y >- 3 * Math.PI / 2) {
-        return this.faces[1]
-      } else if (y >- 2 * Math.PI) {
-        return this.faces[4]
+      if (y > -Math.PI / 2) {
+        return 0
+      } else if (y > -Math.PI) {
+        return 5
+      } else if (y > -3 * Math.PI / 2) {
+        return 1
+      } else if (y > -2 * Math.PI) {
+        return 4
       }
     }
   }
 
-  async assignFacet(face: 0 | 1 | 2 | 3 | 4 | 5, url: URL, description: string) {
-    this.faces[face] = new CubeFace(url, description)
-    // httpswwwalramalhocom-2022-01-fixed.png
-    await this.faces[face].computeTexture()
+  getAvailableFaceIndex(): number {
+    let numberOfAvailableFaces = this.getNumberOfAvailableFaces()
+    switch (numberOfAvailableFaces) {
+      case 4:
+        return this.getFrontFaceIndex(this.targetRotation.y)
+      case 3:
+        return this.getFrontFaceIndex(this.targetRotation.y + Math.PI / 2)
+      case 2:
+        return this.getFrontFaceIndex(this.targetRotation.y + Math.PI)
+      case 1:
+        return this.getFrontFaceIndex(this.targetRotation.y + 3 * Math.PI / 2)
+      case 0:
+        return this.getFrontFaceIndex(this.targetRotation.y + Math.PI)
+    }
+  }
 
-    this.materialArray[face] = new THREE.MeshBasicMaterial({map: this.faces[face].texture});
+  async assignFacet(url: URL, description: string) {
+    const faceIndex = this.getAvailableFaceIndex()
+    this.faces[faceIndex] = new CubeFace(url, description)
+    // httpswwwalramalhocom-2022-01-fixed.png
+    await this.faces[faceIndex].computeTexture()
+
+    this.materialArray[faceIndex] = new THREE.MeshBasicMaterial({map: this.faces[faceIndex].texture});
     this.mesh.material = this.materialArray
   }
 

@@ -32,6 +32,34 @@ let last10Moves = new Queue<Action>(10)
 
 let STATE: "idle" | "selected" | "frame" | "help-menu" = "idle"
 
+interface ShowcaseObject {
+  url: URL,
+  description: string
+  viewScore: number
+}
+const ShowcaseObjects = [
+  {
+    url: new URL('https://hire.alramalho.com'),
+    description: "SHOWCASE: Page for getting in contact with me with project proposals.",
+    viewScore: 0
+  } as ShowcaseObject,
+  {
+    url: new URL('https://www.ipo-track.com'),
+    description: "SHOWCASE: Page for getting in contact with me with project proposals.",
+    viewScore: 0
+  } as ShowcaseObject,
+  {
+    url: new URL('https://blog.alramalho.com'),
+    description: "OPEN-SOURCE: Subscribe to IPOs for free.",
+    viewScore: 0
+  } as ShowcaseObject,
+  {
+    url: new URL('https://www.radialcor.pt'),
+    description: "BLOG: Personal Software Development & Testing blog",
+    viewScore: 0
+  } as ShowcaseObject,
+]
+
 function init() {
 
   container = document.querySelector('.display');
@@ -54,11 +82,13 @@ function init() {
   createLights();
 
   cube = new Cube(glScene, 800)
-  cube.assignFacet(4, new URL('https://hire.alramalho.com'), "SHOWCASE: Page for getting in contact with me with project proposals.")
-  cube.assignFacet(1, new URL('https://www.ipo-track.com'), "OPEN-SOURCE: Subscribe to IPOs for free.")
-  cube.assignFacet(5, new URL('https://blog.alramalho.com'), "BLOG: Personal Software Development & Testing blog")
-  cube.assignFacet(0, new URL('https://www.radialcor.pt'), "SHOWCASE: E-commerce site done back in 2020")
 
+  ShowcaseObjects.forEach((object, index) => {
+    if (index <= 3) {
+      cube.assignFacet(object.url, object.description)
+      object.viewScore += 1
+    }
+  })
 
   createGameboy();
 
@@ -109,7 +139,6 @@ function playSound(id: string = "button-sound") {
   audio.play();
 }
 
-
 function hideInfoBanner() {
   const banner: any = document.getElementsByClassName('info-banner')[0]
   banner.style.transform = 'translateY(100%)'
@@ -142,7 +171,6 @@ function toggleIframeDisclaimer() {
   }
 }
 
-
 function updateInfoBanner() {
   const banner = document.getElementsByClassName('info-banner')[0]
   const bannerTitle = banner.getElementsByClassName('title')[0]
@@ -171,7 +199,25 @@ function triggerKonami() {
 export function fireControl(command: Action) {
   playSound()
 
+  function getShowCaseObjectWithLowestViewscore(): ShowcaseObject {
+    let min = -1
+    let result
+    ShowcaseObjects.forEach(object => {
+      if (object.viewScore < min || min == -1) {
+        min = object.viewScore
+        result = object
+      }
+    })
+    return result
+  }
 
+  function changeFacets(): void{
+    if (ShowcaseObjects.length > 4) {
+      const object = getShowCaseObjectWithLowestViewscore()
+      cube.assignFacet(object.url, object.description)
+      object.viewScore += 1
+    }
+  }
   // todo: refactor. Instead of doing logic per command do it per state. Much cleaner. Use unique helper function to trigger state change.
   switch (command) {
     case "up":
@@ -182,9 +228,11 @@ export function fireControl(command: Action) {
       break
     case "left":
       cube.rotateOverYAxis(-Math.PI / 2)
+      changeFacets()
       break
     case "right":
       cube.rotateOverYAxis(Math.PI / 2)
+      changeFacets()
       break
     case "back":
       switch (STATE) {
