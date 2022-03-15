@@ -58,6 +58,11 @@ const ShowcaseObjects = [
     description: "BLOG: Personal Software Development & Testing blog",
     viewScore: 0
   } as ShowcaseObject,
+  {
+    url: new URL('https://compound-composer.alramalho.com'),
+    description: "SHOWCASE: Interests calculator & visualizer for retail investment",
+    viewScore: 0
+  } as ShowcaseObject,
 ]
 
 function init() {
