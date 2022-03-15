@@ -136,7 +136,7 @@ function createGlRenderer() {
   return glRenderer;
 }
 
-function playSound(id: string = "button-sound") {
+function playSound(id: string = "success") {
   // @ts-ignore
   const audio: HTMLAudioElement = document.getElementById(id);
   audio.play();
@@ -194,7 +194,7 @@ function triggerKonami() {
   }
 
   console.log('⭐ Konami ⭐')
-  playSound('route1-pokemon')
+  playSound('konami')
 
   const r = setInterval(() => {
     assignGameboyRandomColor()
@@ -202,12 +202,10 @@ function triggerKonami() {
 
   setInterval(() => {
     clearInterval(r)
-  }, 14000)
+  }, 1000)
 }
 
 export function fireControl(command: Action) {
-  playSound()
-
   function getShowCaseObjectWithLowestViewscore(): ShowcaseObject {
     let min = -1
     let result
@@ -230,20 +228,36 @@ export function fireControl(command: Action) {
   // todo: refactor. Instead of doing logic per command do it per state. Much cleaner. Use unique helper function to trigger state change.
   switch (command) {
     case "up":
-      showInfoBanner()
+      switch (STATE) {
+        case "selected":
+        showInfoBanner()
+          playSound()
+          break
+        case "idle":
+          playSound('error')
+      }
       break
     case "down":
-      hideInfoBanner()
+      switch (STATE) {
+        case "selected":
+          hideInfoBanner()
+          playSound()
+          break
+        case "idle":
+          playSound('error')
+      }
       break
     case "left":
       cube.rotateOverYAxis(-Math.PI / 2)
       changeFacets()
       showAndUpdatePopup()
+      playSound()
       break
     case "right":
       cube.rotateOverYAxis(Math.PI / 2)
       changeFacets()
       showAndUpdatePopup()
+      playSound()
       break
     case "back":
       if (isHelpMenuOn()) toggleHelpMenu();
@@ -253,6 +267,7 @@ export function fireControl(command: Action) {
           camera.reset()
           hideInfoBanner()
           hidePopup()
+          playSound()
           STATE = "idle"
           break
       }
@@ -272,19 +287,21 @@ export function fireControl(command: Action) {
             new THREE.Vector3(0, 0, camera.object.position.z / 2),
             new THREE.Euler(0, camera.object.rotation.y, camera.object.rotation.z)
           )
-
+          playSound()
           showAndUpdatePopup()
-
           break
         case "selected":
+          playSound()
           open(cube.getFrontFace().url.toString())
           break
       }
       break
     case "start":
+      playSound()
       toggleHelpMenu()
       break
     case "select":
+      playSound()
       open("https://alramalhosandbox.s3.eu-west-1.amazonaws.com/Curriculo.pdf")
       break
   }
@@ -335,7 +352,6 @@ function createGameboy() {
     const button = document.createElement('div')
     button.onclick = () => {
       fnCallback();
-      playSound()
     }
     button.innerHTML = innerHTML
     if (extraClassNames !== undefined) {
