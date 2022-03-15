@@ -249,12 +249,22 @@ export function fireControl(command: Action) {
       break
     case "left":
       cube.rotateOverYAxis(-Math.PI / 2)
+      switch (STATE) {
+        case "selected":
+          showAndUpdatePopup()
+          break
+      }
       changeFacets()
       showAndUpdatePopup()
       playSound()
       break
     case "right":
       cube.rotateOverYAxis(Math.PI / 2)
+      switch (STATE) {
+        case "selected":
+          showAndUpdatePopup()
+          break
+      }
       changeFacets()
       showAndUpdatePopup()
       playSound()
