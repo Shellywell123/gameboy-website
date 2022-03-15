@@ -92,6 +92,34 @@ h1 {
   box-shadow: 0.05em 0.05em;
 }
 
+.cube-menu {
+  display: block;
+  height: fit-content;
+  position: absolute;
+  font-family: sans-serif;
+  width: 100%;
+  z-index: 6;
+  color: white;
+  bottom: 2rem;
+  letter-spacing: 4px;
+  font-size: 0.7rem;
+  padding-right: 15px;
+  text-transform: uppercase;
+
+  p {
+    font-size: 1rem;
+    font-weight: bolder;
+    letter-spacing: 6px;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    li {
+      margin-top: 0.35rem
+    }
+  }
+}
+
 .info-banner {
   z-index: 2;
   position: absolute;

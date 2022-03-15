@@ -28,13 +28,14 @@ let glScene: THREE.Scene;
 let cube: Cube;
 let last10Moves = new Queue<Action>(10)
 
-let STATE: "idle" | "selected"  = "idle"
+let STATE: "idle" | "selected" = "idle"
 
 interface ShowcaseObject {
   url: URL,
   description: string
   viewScore: number
 }
+
 const ShowcaseObjects = [
   {
     url: new URL('https://hire.alramalho.com'),
@@ -43,17 +44,17 @@ const ShowcaseObjects = [
   } as ShowcaseObject,
   {
     url: new URL('https://www.ipo-track.com'),
-    description: "SHOWCASE: Page for getting in contact with me with project proposals.",
+    description: "OPEN-SOURCE: Webapp to get FREE IPO email notifications!",
     viewScore: 0
   } as ShowcaseObject,
   {
     url: new URL('https://blog.alramalho.com'),
-    description: "OPEN-SOURCE: Subscribe to IPOs for free.",
+    description: "BLOG: Personal Software Development & Testing blog",
     viewScore: 0
   } as ShowcaseObject,
   {
     url: new URL('https://www.radialcor.pt'),
-    description: "BLOG: Personal Software Development & Testing blog",
+    description: "SHOWCASE: Live E-commerce website made by me with Django",
     viewScore: 0
   } as ShowcaseObject,
   {
@@ -89,11 +90,11 @@ function init() {
   ShowcaseObjects.forEach((object, index) => {
     if (index <= 3) {
       cube.assignFacet(object.url, object.description)
-      object.viewScore += 1
     }
   })
 
   createGameboy();
+  showAndUpdateCubeMenu()
 
   update()
 
@@ -167,6 +168,59 @@ function toggleHelpMenu() {
   }
 }
 
+function getShowCaseObjectWithHighestViewscore(): ShowcaseObject {
+  let max = -1
+  let result
+  ShowcaseObjects.forEach(object => {
+    if (object.viewScore > max || max == -1) {
+      max = object.viewScore
+      result = object
+    }
+  })
+  return result
+}
+
+function getShowCaseObjectWithLowestViewscore(): ShowcaseObject {
+  let min = -1
+  let result
+  ShowcaseObjects.forEach(object => {
+    if (object.viewScore < min || min == -1) {
+      min = object.viewScore
+      result = object
+    }
+  })
+  return result
+}
+
+function hideCubeMenu() {
+  const cubeMenu: any = document.getElementsByClassName('cube-menu')[0]
+  cubeMenu.style.display = 'none';
+}
+
+function showAndUpdateCubeMenu() {
+  ShowcaseObjects.forEach(object => {
+    if (cube.faces.find(face => face && face.url == object.url)) {
+      object.viewScore += 1
+    }
+  })
+
+  const cubeMenu: any = document.getElementsByClassName('cube-menu')[0]
+  cubeMenu.style.display = 'block';
+  cubeMenu.innerHTML = `<ul><p>On the cube</p>
+  ${ShowcaseObjects//.sort((a, b) => b.viewScore - a.viewScore)
+    .map((object, index) => {
+      if (getShowCaseObjectWithHighestViewscore().viewScore == object.viewScore) {
+        return `<li><u>${object.url.host}</u></li>`
+      } else {
+        return `<li>${object.url.host}</li>`
+      }
+    }).join('\n')}
+  </ul>
+  `
+
+  console.log(ShowcaseObjects)
+}
+
 function hidePopup() {
   const popup: any = document.getElementsByClassName('popup')[0]
   popup.style.display = 'none';
@@ -206,31 +260,21 @@ function triggerKonami() {
 }
 
 export function fireControl(command: Action) {
-  function getShowCaseObjectWithLowestViewscore(): ShowcaseObject {
-    let min = -1
-    let result
-    ShowcaseObjects.forEach(object => {
-      if (object.viewScore < min || min == -1) {
-        min = object.viewScore
-        result = object
-      }
-    })
-    return result
-  }
 
-  function changeFacets(): void{
+  function changeFacets(): void {
     if (ShowcaseObjects.length > 4) {
       const object = getShowCaseObjectWithLowestViewscore()
       cube.assignFacet(object.url, object.description)
       object.viewScore += 1
     }
   }
+
   // todo: refactor. Instead of doing logic per command do it per state. Much cleaner. Use unique helper function to trigger state change.
   switch (command) {
     case "up":
       switch (STATE) {
         case "selected":
-        showInfoBanner()
+          showInfoBanner()
           playSound()
           break
         case "idle":
@@ -253,9 +297,11 @@ export function fireControl(command: Action) {
         case "selected":
           showAndUpdatePopup()
           break
+        case "idle":
+          changeFacets()
+          showAndUpdateCubeMenu()
+          break
       }
-      changeFacets()
-      showAndUpdatePopup()
       playSound()
       break
     case "right":
@@ -264,20 +310,23 @@ export function fireControl(command: Action) {
         case "selected":
           showAndUpdatePopup()
           break
+        case "idle":
+          changeFacets()
+          showAndUpdateCubeMenu()
+          break
       }
-      changeFacets()
-      showAndUpdatePopup()
       playSound()
       break
     case "back":
       if (isHelpMenuOn()) toggleHelpMenu();
       switch (STATE) {
         case "selected":
+          playSound()
           cube.rotateOverYAxis(0)
           camera.reset()
           hideInfoBanner()
           hidePopup()
-          playSound()
+          showAndUpdateCubeMenu()
           STATE = "idle"
           break
       }
@@ -285,6 +334,7 @@ export function fireControl(command: Action) {
     case "enter":
       switch (STATE) {
         case "idle":
+          playSound()
           STATE = "selected"
           const anchor = Math.PI / 2
           const leftover = cube.targetRotation.y % anchor
@@ -297,8 +347,9 @@ export function fireControl(command: Action) {
             new THREE.Vector3(0, 0, camera.object.position.z / 2),
             new THREE.Euler(0, camera.object.rotation.y, camera.object.rotation.z)
           )
-          playSound()
           showAndUpdatePopup()
+          hideCubeMenu()
+          showInfoBanner()
           break
         case "selected":
           playSound()
