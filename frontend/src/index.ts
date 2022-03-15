@@ -26,11 +26,9 @@ let camera: Camera;
 let glRenderer: THREE.WebGLRenderer;
 let glScene: THREE.Scene;
 let cube: Cube;
-let iframe: HTMLIFrameElement
-let popup
 let last10Moves = new Queue<Action>(10)
 
-let STATE: "idle" | "selected" | "frame" = "idle"
+let STATE: "idle" | "selected"  = "idle"
 
 interface ShowcaseObject {
   url: URL,
@@ -169,18 +167,17 @@ function toggleHelpMenu() {
   }
 }
 
-let disclaimerPopupId
-function toggleIframeDisclaimer() {
-  const iframeDisclaimer: any = document.getElementsByClassName('iframe-disclaimer')[0]
-  if (iframeDisclaimer.style.opacity == "0" || iframeDisclaimer.style.opacity == "") {
-    iframeDisclaimer.style.opacity = '100%'
-    disclaimerPopupId = setInterval(() => {
-      iframeDisclaimer.style.opacity = '0'
-    }, 4000)
-  } else {
-    iframeDisclaimer.style.opacity = '0'
-    clearInterval(disclaimerPopupId)
-  }
+function hidePopup() {
+  const popup: any = document.getElementsByClassName('popup')[0]
+  popup.style.display = 'none';
+}
+
+function showAndUpdatePopup() {
+  const popup: any = document.getElementsByClassName('popup')[0]
+  popup.style.display = 'block';
+  const url = cube.getFrontFace().url
+  popup.onclick = () => open(url.toString())
+  popup.innerHTML = `Click 'A' to visit ${url.host} &rarr;`
 }
 
 function updateInfoBanner() {
@@ -241,10 +238,12 @@ export function fireControl(command: Action) {
     case "left":
       cube.rotateOverYAxis(-Math.PI / 2)
       changeFacets()
+      showAndUpdatePopup()
       break
     case "right":
       cube.rotateOverYAxis(Math.PI / 2)
       changeFacets()
+      showAndUpdatePopup()
       break
     case "back":
       if (isHelpMenuOn()) toggleHelpMenu();
@@ -253,13 +252,8 @@ export function fireControl(command: Action) {
           cube.rotateOverYAxis(0)
           camera.reset()
           hideInfoBanner()
+          hidePopup()
           STATE = "idle"
-          break
-        case "frame":
-          history.back()
-          container.classList.add('sepia')
-          toggleIframeDisclaimer()
-
           break
       }
       break
@@ -279,14 +273,11 @@ export function fireControl(command: Action) {
             new THREE.Euler(0, camera.object.rotation.y, camera.object.rotation.z)
           )
 
+          showAndUpdatePopup()
+
           break
         case "selected":
-          history.pushState({}, "", cube.getFrontFace().url.host.replace(/www.|.com/g, " ").replace('.', '-'))
-          loadFrame(cube.getFrontFace().url)
-          toggleIframeDisclaimer()
-
-          STATE = 'frame'
-          container.classList.remove('sepia')
+          open(cube.getFrontFace().url.toString())
           break
       }
       break
@@ -428,42 +419,6 @@ function update() {
 }
 
 init();
-
-function exitIframe() {
-  iframe.remove()
-  STATE = 'selected'
-  popup.style.display = 'none'
-
-  glRenderer.domElement.style.display = 'block'
-}
-
-window.onpopstate = function () {
-  exitIframe();
-}
-
-function loadFrame(url: URL) {
-
-  iframe = document.createElement('iframe');
-  iframe.id = 'iframe'
-  iframe.src = url.toString();
-  iframe.style.width = '100%';
-  iframe.style.height = `100%`;
-  iframe.style.display = 'fixed';
-
-  container.append(iframe);
-
-  glRenderer.domElement.style.display = 'none'
-
-  popup = document.createElement('div')
-  popup.onclick = () => open(url.toString())
-  popup.className = 'popup'
-  popup.style.display = 'block';
-  popup.style.zIndex = '11';
-  popup.innerHTML = `Visit ${url.host} &rarr;`
-
-  document.body.appendChild(popup)
-
-}
 
 function onWindowResize() {
   camera.object.aspect = container.clientWidth / container.clientHeight;
