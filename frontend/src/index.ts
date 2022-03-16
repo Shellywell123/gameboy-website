@@ -213,6 +213,7 @@ function hideCubeMenu() {
 }
 
 function showAndUpdateCubeMenu() {
+  ShowcaseObjects.forEach(object => object.viewScore = 0)
   ShowcaseObjects.forEach(object => {
     if (cube.faces.find(face => face && face.url == object.url)) {
       object.viewScore += 1
@@ -225,7 +226,11 @@ function showAndUpdateCubeMenu() {
   ${ShowcaseObjects//.sort((a, b) => b.viewScore - a.viewScore)
     .map((object, index) => {
       if (getShowCaseObjectWithHighestViewscore().viewScore == object.viewScore) {
-        return `<li><u>${object.title}</u></li>`
+        if (cube.getFrontFace().url == object.url) {
+          return `<li><u style="text-decoration-color: var(--gameboyColor); text-decoration-thickness: 0.1rem">${object.title}</u></li>`
+        } else {
+          return `<li><u>${object.title}</u></li>`
+        }
       } else {
         return `<li>${object.title}</li>`
       }
@@ -348,7 +353,7 @@ export function fireControl(command: Action) {
         case "idle":
           cube.rotateOverYAxis(Math.PI / 2)
           changeFacets()
-          showAndUpdateCubeMenu()
+          // showAndUpdateCubeMenu()
           break
       }
       playSound()
@@ -514,6 +519,7 @@ function createGameboy() {
 
 function updateEverySecond() {
   updateInfoBanner()
+  showAndUpdateCubeMenu()
 }
 
 function update() {
