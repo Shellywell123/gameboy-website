@@ -109,7 +109,8 @@ function init() {
   })
 
   createGameboy();
-  showAndUpdateCubeMenu()
+  showCubeMenu()
+  updateCubeMenu()
 
   update()
 
@@ -212,7 +213,12 @@ function hideCubeMenu() {
   cubeMenu.style.display = 'none';
 }
 
-function showAndUpdateCubeMenu() {
+function showCubeMenu() {
+  const cubeMenu: any = document.getElementsByClassName('cube-menu')[0]
+  cubeMenu.style.display = 'block';
+}
+
+function updateCubeMenu() {
   ShowcaseObjects.forEach(object => object.viewScore = 0)
   ShowcaseObjects.forEach(object => {
     if (cube.faces.find(face => face && face.url == object.url)) {
@@ -221,7 +227,6 @@ function showAndUpdateCubeMenu() {
   })
 
   const cubeMenu: any = document.getElementsByClassName('cube-menu')[0]
-  cubeMenu.style.display = 'block';
   cubeMenu.innerHTML = `<ul><p>On the cube</p>
   ${ShowcaseObjects//.sort((a, b) => b.viewScore - a.viewScore)
     .map((object, index) => {
@@ -339,7 +344,6 @@ export function fireControl(command: Action) {
         case "idle":
           cube.rotateOverYAxis(-Math.PI / 2)
           changeFacets()
-          showAndUpdateCubeMenu()
           break
       }
       playSound()
@@ -353,7 +357,6 @@ export function fireControl(command: Action) {
         case "idle":
           cube.rotateOverYAxis(Math.PI / 2)
           changeFacets()
-          // showAndUpdateCubeMenu()
           break
       }
       playSound()
@@ -367,7 +370,8 @@ export function fireControl(command: Action) {
           camera.reset()
           hideInfoBanner()
           hidePopup()
-          showAndUpdateCubeMenu()
+          showCubeMenu()
+          updateCubeMenu()
           STATE = "idle"
           break
       }
@@ -519,7 +523,7 @@ function createGameboy() {
 
 function updateEverySecond() {
   updateInfoBanner()
-  showAndUpdateCubeMenu()
+  updateCubeMenu()
 }
 
 function update() {
