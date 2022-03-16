@@ -126,9 +126,6 @@ h1 {
   z-index: 2;
   position: absolute;
   bottom: 0;
-  //background: rgba(113, 155, 175, 0.7);
-  //border-top: 0.5rem solid #2c313e;
-  //border-radius: 10px;
   font-family: sans-serif;
   color: white;
   transition: var(--infoBannerTransitionTimeInSeconds);
@@ -140,7 +137,6 @@ h1 {
     text-transform: uppercase;
     font-weight: bolder;
     letter-spacing: 6px;
-    //background: rgba(113, 155, 175, 0.7);
     padding: 0.4rem;
     margin: 0.4rem 0;
     font-size: 0.8rem;
@@ -491,6 +487,16 @@ h1 {
     bottom: 2rem;
 
     p {
+      font-size: 1rem;
+    }
+  }
+
+  .info-banner {
+    margin-bottom: 0.4rem;
+    .title {
+      font-size: 1.2rem;
+    }
+    .content {
       font-size: 1rem;
     }
   }
