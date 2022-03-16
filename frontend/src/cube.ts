@@ -2,11 +2,13 @@ import * as THREE from 'three'
 
 class CubeFace {
   url: URL
+  title: string
   texture: THREE.Texture
   description: string
 
-  constructor(url: URL, description: string) {
+  constructor(url: URL, title: string, description: string) {
     this.url = url
+    this.title = title
     this.description = description
   }
 
@@ -63,8 +65,8 @@ class Cube {
     this.faces = [
       null,
       null,
-      new CubeFace(new URL('http://www.irrelevant.pt'), 'irrelevant'),
-      new CubeFace(new URL('http://www.irrelevant.pt'), 'irrelevant'),
+      new CubeFace(new URL('http://www.irrelevant.pt'), '', ''),
+      new CubeFace(new URL('http://www.irrelevant.pt'), '', ''),
       null,
       null
     ]
@@ -72,6 +74,19 @@ class Cube {
 
   update() {
     this.mesh.rotation.y = THREE.Math.lerp(this.mesh.rotation.y, this.targetRotation.y, 0.1);
+  }
+
+  bump(side: "left" | "right") {
+    switch (side) {
+      case "left":
+        this.rotateOverYAxis(-Math.PI / 16)
+        setTimeout(() => this.rotateOverYAxis(Math.PI/16), 100)
+        break
+      case "right":
+        this.rotateOverYAxis(Math.PI / 16)
+        setTimeout(() => this.rotateOverYAxis(-Math.PI/16), 100)
+        break
+    }
   }
 
   rotateOverYAxis(amount: number) {
@@ -131,9 +146,9 @@ class Cube {
     }
   }
 
-  async assignFacet(url: URL, description: string) {
+  async assignFacet(url: URL, title: string, description: string) {
     const faceIndex = this.getAvailableFaceIndex()
-    this.faces[faceIndex] = new CubeFace(url, description)
+    this.faces[faceIndex] = new CubeFace(url, title, description)
     // httpswwwalramalhocom-2022-01-fixed.png
     await this.faces[faceIndex].computeTexture()
 

@@ -59,7 +59,7 @@ class Camera {
     )
   }
 
-  move(position: THREE.Vector3, rotation: THREE.Euler) {
+  moveTo(position: THREE.Vector3, rotation: THREE.Euler = new THREE.Euler(0,0,0)) {
     this.targetPosition.set(position.x, position.y, position.z)
     this.targetRotation.set(rotation.x, rotation.y, rotation.z)
   }

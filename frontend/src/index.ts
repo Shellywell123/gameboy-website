@@ -32,6 +32,7 @@ let STATE: "idle" | "selected" = "idle"
 
 interface ShowcaseObject {
   url: URL,
+  title: string
   description: string
   viewScore: number
 }
@@ -39,26 +40,33 @@ interface ShowcaseObject {
 const ShowcaseObjects = [
   {
     url: new URL('https://hire.alramalho.com'),
-    description: "SHOWCASE: Page for getting in contact with me with project proposals.",
+    title: 'My previous portfolio 📙',
+    description: `
+    <p>Previous portfolio. Here you can get in contact with me.</p>
+    `,
     viewScore: 0
   } as ShowcaseObject,
   {
     url: new URL('https://www.ipo-track.com'),
+    title: 'IPO Track 🔔',
     description: "OPEN-SOURCE: Webapp to get FREE IPO email notifications!",
     viewScore: 0
   } as ShowcaseObject,
   {
     url: new URL('https://blog.alramalho.com'),
+    title: 'Blog 📝',
     description: "BLOG: Personal Software Development & Testing blog",
     viewScore: 0
   } as ShowcaseObject,
   {
     url: new URL('https://www.radialcor.pt'),
+    title: 'Radialcor 🎨',
     description: "SHOWCASE: Live E-commerce website made by me with Django",
     viewScore: 0
   } as ShowcaseObject,
   {
     url: new URL('https://compound-composer.alramalho.com'),
+    title: 'Compound Composer 💰',
     description: "SHOWCASE: Interests calculator & visualizer for retail investment",
     viewScore: 0
   } as ShowcaseObject,
@@ -89,7 +97,7 @@ function init() {
 
   ShowcaseObjects.forEach((object, index) => {
     if (index <= 3) {
-      cube.assignFacet(object.url, object.description)
+      cube.assignFacet(object.url, object.title, object.description)
     }
   })
 
@@ -210,9 +218,9 @@ function showAndUpdateCubeMenu() {
   ${ShowcaseObjects//.sort((a, b) => b.viewScore - a.viewScore)
     .map((object, index) => {
       if (getShowCaseObjectWithHighestViewscore().viewScore == object.viewScore) {
-        return `<li><u>${object.url.host}</u></li>`
+        return `<li><u>${object.title}</u></li>`
       } else {
-        return `<li>${object.url.host}</li>`
+        return `<li>${object.title}</li>`
       }
     }).join('\n')}
   </ul>
@@ -229,17 +237,17 @@ function hidePopup() {
 function showAndUpdatePopup() {
   const popup: any = document.getElementsByClassName('popup')[0]
   popup.style.display = 'block';
-  const url = cube.getFrontFace().url
-  popup.onclick = () => open(url.toString())
-  popup.innerHTML = `Click 'A' to visit ${url.host} &rarr;`
+  const frontFace = cube.getFrontFace()
+  popup.onclick = () => open(frontFace.url.toString())
+  popup.innerHTML = `Click 'A' to visit <i>${frontFace.title}</i> &rarr;`
 }
 
 function updateInfoBanner() {
   const banner = document.getElementsByClassName('info-banner')[0]
   const bannerTitle = banner.getElementsByClassName('title')[0]
   const bannerContent = banner.getElementsByClassName('content')[0]
-  bannerTitle.textContent = cube.getFrontFace().url.toString()
-  bannerContent.textContent = cube.getFrontFace().description
+  bannerTitle.innerHTML = cube.getFrontFace().title
+  bannerContent.innerHTML = cube.getFrontFace().description
 }
 
 function triggerKonami() {
@@ -259,12 +267,29 @@ function triggerKonami() {
   }, 1000)
 }
 
+function cameraMoveUpToShowInfoBanner() {
+  const infoBannerHeightInPx:any = parseInt(getComputedStyle(document.documentElement.getElementsByClassName('info-banner')[0]).height.replace(/px/g, ""))
+  camera.moveTo(new THREE.Vector3(
+    camera.targetPosition.x,
+    camera.targetPosition.y - infoBannerHeightInPx * 2.5,
+    camera.targetPosition.z
+  ))
+}
+
+function cameraMoveDownWhenHidingInfoBanner() {
+  camera.moveTo(new THREE.Vector3(
+    camera.targetPosition.x,
+    camera.targetPosition.y + 500,
+    camera.targetPosition.z
+  ))
+}
+
 export function fireControl(command: Action) {
 
   function changeFacets(): void {
     if (ShowcaseObjects.length > 4) {
       const object = getShowCaseObjectWithLowestViewscore()
-      cube.assignFacet(object.url, object.description)
+      cube.assignFacet(object.url, object.title, object.description)
       object.viewScore += 1
     }
   }
@@ -274,6 +299,7 @@ export function fireControl(command: Action) {
     case "up":
       switch (STATE) {
         case "selected":
+          cameraMoveUpToShowInfoBanner();
           showInfoBanner()
           playSound()
           break
@@ -284,6 +310,7 @@ export function fireControl(command: Action) {
     case "down":
       switch (STATE) {
         case "selected":
+          cameraMoveDownWhenHidingInfoBanner();
           hideInfoBanner()
           playSound()
           break
@@ -292,12 +319,13 @@ export function fireControl(command: Action) {
       }
       break
     case "left":
-      cube.rotateOverYAxis(-Math.PI / 2)
       switch (STATE) {
         case "selected":
-          showAndUpdatePopup()
+          cube.bump("left")
+          playSound("error")
           break
         case "idle":
+          cube.rotateOverYAxis(-Math.PI / 2)
           changeFacets()
           showAndUpdateCubeMenu()
           break
@@ -305,12 +333,13 @@ export function fireControl(command: Action) {
       playSound()
       break
     case "right":
-      cube.rotateOverYAxis(Math.PI / 2)
       switch (STATE) {
         case "selected":
-          showAndUpdatePopup()
+          cube.bump("right")
+          playSound("error")
           break
         case "idle":
+          cube.rotateOverYAxis(Math.PI / 2)
           changeFacets()
           showAndUpdateCubeMenu()
           break
@@ -343,10 +372,14 @@ export function fireControl(command: Action) {
           } else {
             cube.rotateOverYAxis(-leftover)
           }
-          camera.move(
+          camera.moveTo(
             new THREE.Vector3(0, 0, camera.object.position.z / 2),
             new THREE.Euler(0, camera.object.rotation.y, camera.object.rotation.z)
           )
+
+          const transitionTime: number = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--infoBannerTransitionTimeInSeconds").replace("s", ""))
+          window.setTimeout(() => cameraMoveUpToShowInfoBanner(), transitionTime/3 * 1000)
+
           showAndUpdatePopup()
           hideCubeMenu()
           showInfoBanner()
