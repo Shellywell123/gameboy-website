@@ -42,32 +42,39 @@ const ShowcaseObjects = [
     url: new URL('https://hire.alramalho.com'),
     title: 'My previous portfolio 📙',
     description: `
-    <p>Previous portfolio. Here you can get in contact with me.</p>
+      <p>Previous portfolio. Here you can get in contact with me.</p>
+      <p><b>Tech used:</b> Gatsby (React), Netlify, HTML, CSS</p>
     `,
     viewScore: 0
   } as ShowcaseObject,
   {
     url: new URL('https://www.ipo-track.com'),
     title: 'IPO Track 🔔',
-    description: "OPEN-SOURCE: Webapp to get FREE IPO email notifications!",
+    description: `
+      <span>[<a target="_blank" href="https://github.com/alramalho/ipo-track">OPEN-SOURCE</a>] Webapp to get FREE IPO email notifications</span>
+      <p><b>Tech used:</b> AWS, AWS CDK, Github Actions, NextJS (React), Netlify, TailwindCSS</p>
+    `,
     viewScore: 0
   } as ShowcaseObject,
   {
     url: new URL('https://blog.alramalho.com'),
     title: 'Blog 📝',
-    description: "BLOG: Personal Software Development & Testing blog",
+    description: `<span>BLOG: Personal Software Development & Testing blog</span>`,
     viewScore: 0
   } as ShowcaseObject,
   {
     url: new URL('https://www.radialcor.pt'),
     title: 'Radialcor 🎨',
-    description: "SHOWCASE: Live E-commerce website made by me with Django",
+    description: `
+      <span>Live E-commerce website made by me with Django</span>
+      <p><b>Tech used:</b> AWS, Github Actions, Django, Wagtail, HTML, CSS</p
+    `,
     viewScore: 0
   } as ShowcaseObject,
   {
     url: new URL('https://compound-composer.alramalho.com'),
     title: 'Compound Composer 💰',
-    description: "SHOWCASE: Interests calculator & visualizer for retail investment",
+    description: "Interests calculator & visualizer for retail investment",
     viewScore: 0
   } as ShowcaseObject,
 ]
@@ -268,7 +275,7 @@ function triggerKonami() {
 }
 
 function cameraMoveUpToShowInfoBanner() {
-  const infoBannerHeightInPx:any = parseInt(getComputedStyle(document.documentElement.getElementsByClassName('info-banner')[0]).height.replace(/px/g, ""))
+  const infoBannerHeightInPx: any = parseInt(getComputedStyle(document.documentElement.getElementsByClassName('info-banner')[0]).height.replace(/px/g, ""))
   camera.moveTo(new THREE.Vector3(
     camera.targetPosition.x,
     camera.targetPosition.y - infoBannerHeightInPx * 2.5,
@@ -378,7 +385,7 @@ export function fireControl(command: Action) {
           )
 
           const transitionTime: number = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--infoBannerTransitionTimeInSeconds").replace("s", ""))
-          window.setTimeout(() => cameraMoveUpToShowInfoBanner(), transitionTime/3 * 1000)
+          window.setTimeout(() => cameraMoveUpToShowInfoBanner(), transitionTime / 3 * 1000)
 
           showAndUpdatePopup()
           hideCubeMenu()

@@ -81,6 +81,7 @@ h1 {
   border: 3px solid black;
   border-radius: 0.4em;
   box-shadow: 0.1em 0.1em;
+  pointer-events: auto;
 }
 
 .popup:hover {
@@ -133,6 +134,7 @@ h1 {
   transition: var(--infoBannerTransitionTimeInSeconds);
   width: 100%;
   transform: translateY(100%);
+  pointer-events: auto;
 
   .title {
     text-transform: uppercase;
