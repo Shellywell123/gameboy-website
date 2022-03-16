@@ -153,7 +153,7 @@ function createGlRenderer() {
   return glRenderer;
 }
 
-function playSound(id: string = "success") {
+function playSound(id: string) {
   // @ts-ignore
   const audio: HTMLAudioElement = document.getElementById(id);
   audio.play();
@@ -318,10 +318,10 @@ export function fireControl(command: Action) {
         case "selected":
           cameraMoveUpToShowInfoBanner();
           showInfoBanner()
-          playSound()
           break
         case "idle":
           playSound('error')
+          break
       }
       break
     case "down":
@@ -329,10 +329,10 @@ export function fireControl(command: Action) {
         case "selected":
           cameraMoveDownWhenHidingInfoBanner();
           hideInfoBanner()
-          playSound()
           break
         case "idle":
           playSound('error')
+          break
       }
       break
     case "left":
@@ -346,7 +346,6 @@ export function fireControl(command: Action) {
           changeFacets()
           break
       }
-      playSound()
       break
     case "right":
       switch (STATE) {
@@ -359,13 +358,11 @@ export function fireControl(command: Action) {
           changeFacets()
           break
       }
-      playSound()
       break
     case "back":
       if (isHelpMenuOn()) toggleHelpMenu();
       switch (STATE) {
         case "selected":
-          playSound()
           cube.rotateOverYAxis(0)
           camera.reset()
           hideInfoBanner()
@@ -379,7 +376,6 @@ export function fireControl(command: Action) {
     case "enter":
       switch (STATE) {
         case "idle":
-          playSound()
           STATE = "selected"
           const anchor = Math.PI / 2
           const leftover = cube.targetRotation.y % anchor
@@ -401,17 +397,14 @@ export function fireControl(command: Action) {
           showInfoBanner()
           break
         case "selected":
-          playSound()
           open(cube.getFrontFace().url.toString())
           break
       }
       break
     case "start":
-      playSound()
       toggleHelpMenu()
       break
     case "select":
-      playSound()
       open("https://alramalhosandbox.s3.eu-west-1.amazonaws.com/Curriculo.pdf")
       break
   }
