@@ -78,7 +78,7 @@ function init() {
     window.innerWidth / window.innerHeight,
     1,
     10000,
-    new THREE.Vector3(0, 400, 4000),
+    new THREE.Vector3(0, 200, 3300),
     new THREE.Euler(-Math.PI / 16, 0, 0)
   )
   camera.object.aspect = container.clientWidth / container.clientHeight;
