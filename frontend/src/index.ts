@@ -40,19 +40,10 @@ interface ShowcaseObject {
 const ShowcaseObjects = [
   {
     url: new URL('https://hire.alramalho.com'),
-    title: 'My previous portfolio 📙',
+    title: 'Contact me 📢',
     description: `
       <p>Previous portfolio. Here you can get in contact with me.</p>
       <p><b>Tech used:</b> Gatsby (React), Netlify, HTML, CSS</p>
-    `,
-    viewScore: 0
-  } as ShowcaseObject,
-  {
-    url: new URL('https://www.ipo-track.com'),
-    title: 'IPO Track 🔔',
-    description: `
-      <span>[<a target="_blank" href="https://github.com/alramalho/ipo-track">OPEN-SOURCE</a>] Webapp to get FREE IPO email notifications</span>
-      <p><b>Tech used:</b> AWS, AWS CDK, Github Actions, NextJS (React), Netlify, TailwindCSS</p>
     `,
     viewScore: 0
   } as ShowcaseObject,
@@ -64,7 +55,7 @@ const ShowcaseObjects = [
   } as ShowcaseObject,
   {
     url: new URL('https://www.radialcor.pt'),
-    title: 'Radialcor 🎨',
+    title: 'Project: Radialcor 🎨',
     description: `
       <span>Live E-commerce website made by me with Django</span>
       <p><b>Tech used:</b> AWS, Github Actions, Django, Wagtail, HTML, CSS</p
@@ -73,8 +64,17 @@ const ShowcaseObjects = [
   } as ShowcaseObject,
   {
     url: new URL('https://compound-composer.alramalho.com'),
-    title: 'Compound Composer 💰',
+    title: 'Project: Compound Composer 💰',
     description: "Interests calculator & visualizer for retail investment",
+    viewScore: 0
+  } as ShowcaseObject,
+  {
+    url: new URL('https://www.ipo-track.com'),
+    title: 'Open source roject: IPO Track 🔔',
+    description: `
+      <span>Webapp to get FREE IPO notifications [<a target="_blank" href="https://github.com/alramalho/ipo-track">source</a>]</span>
+      <p><b>Tech used:</b> AWS, AWS CDK, Github Actions, NextJS (React), Netlify, TailwindCSS</p>
+    `,
     viewScore: 0
   } as ShowcaseObject,
 ]
