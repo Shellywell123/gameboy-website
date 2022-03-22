@@ -96,6 +96,8 @@ h1 {
 
 .cube-menu {
   display: block;
+  opacity: 100%;
+  transition: 0.9s;
   height: fit-content;
   position: absolute;
   font-family: sans-serif;

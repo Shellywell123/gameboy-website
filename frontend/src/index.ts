@@ -210,12 +210,12 @@ function getShowCaseObjectWithLowestViewscore(): ShowcaseObject {
 
 function hideCubeMenu() {
   const cubeMenu: any = document.getElementsByClassName('cube-menu')[0]
-  cubeMenu.style.display = 'none';
+  cubeMenu.style.opacity = '0';
 }
 
 function showCubeMenu() {
   const cubeMenu: any = document.getElementsByClassName('cube-menu')[0]
-  cubeMenu.style.display = 'block';
+  cubeMenu.style.opacity = '100%';
 }
 
 function updateCubeMenu() {
@@ -256,7 +256,16 @@ function showAndUpdatePopup() {
   popup.style.display = 'block';
   const frontFace = cube.getFrontFace()
   popup.onclick = () => open(frontFace.url.toString())
-  popup.innerHTML = `Click 'A' to visit <i>${frontFace.title}</i> &rarr;`
+  popup.innerHTML = `
+    <div style="display: flex; flex-direction: column; align-items: center; line-height: 2rem">
+      <div>
+          <img style="height: 3rem" src="../assets/a.png" alt="A"></img>
+          <span style="font-size: 2rem">or</span>
+          <img style="height: 3rem" src="../assets/enter.png" alt="Enter"></img>
+      </div>
+      <span>to visit <i>${frontFace.title}</i> &rarr;</span>
+      </div>
+    `
 }
 
 function updateInfoBanner() {
