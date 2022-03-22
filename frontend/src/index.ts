@@ -55,7 +55,7 @@ const ShowcaseObjects = [
   } as ShowcaseObject,
   {
     url: new URL('https://www.radialcor.pt'),
-    title: 'Project: Radialcor 🎨',
+    title: 'Project: <i>Radialcor 🎨</i>',
     description: `
       <span>Live E-commerce website made by me with Django</span>
       <p><b>Tech used:</b> AWS, Github Actions, Django, Wagtail, HTML, CSS</p
@@ -64,13 +64,13 @@ const ShowcaseObjects = [
   } as ShowcaseObject,
   {
     url: new URL('https://compound-composer.alramalho.com'),
-    title: 'Project: Compound Composer 💰',
+    title: 'Project: <i>Compound Composer 💰</i>',
     description: "Interests calculator & visualizer for retail investment",
     viewScore: 0
   } as ShowcaseObject,
   {
     url: new URL('https://www.ipo-track.com'),
-    title: 'Open source Project: IPO Track 🔔',
+    title: 'Open source Project: <i>IPO Track 🔔</i>',
     description: `
       <span>Webapp to get FREE IPO notifications [<a target="_blank" href="https://github.com/alramalho/ipo-track">source</a>]</span>
       <p><b>Tech used:</b> AWS, AWS CDK, Github Actions, NextJS (React), Netlify, TailwindCSS</p>
