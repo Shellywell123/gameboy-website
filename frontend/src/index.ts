@@ -70,7 +70,7 @@ const ShowcaseObjects = [
   } as ShowcaseObject,
   {
     url: new URL('https://www.ipo-track.com'),
-    title: 'Open source roject: IPO Track 🔔',
+    title: 'Open source Project: IPO Track 🔔',
     description: `
       <span>Webapp to get FREE IPO notifications [<a target="_blank" href="https://github.com/alramalho/ipo-track">source</a>]</span>
       <p><b>Tech used:</b> AWS, AWS CDK, Github Actions, NextJS (React), Netlify, TailwindCSS</p>
