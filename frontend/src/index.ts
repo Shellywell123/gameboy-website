@@ -69,7 +69,7 @@ const ShowcaseObjects = [
     viewScore: 0
   } as ShowcaseObject,
   {
-    url: new URL('https://www.ipo-track.com'),
+    url: new URL('https://ipo-track.alramalho.com/'),
     title: 'Open source Project: <i>IPO Track 🔔</i>',
     description: `
       <span>Webapp to get FREE IPO notifications [<a target="_blank" href="https://github.com/alramalho/ipo-track">source</a>]</span>
