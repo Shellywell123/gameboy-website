@@ -39,33 +39,24 @@ interface ShowcaseObject {
 
 const ShowcaseObjects = [
   {
-    url: new URL('https://hire.alramalho.com'),
-    title: 'Contact me 📢',
+    url: new URL('https://city-explorer.alramalho.com'),
+    title: 'Project: <i>City Explorer 🏛</i>',
     description: `
-      <p>Previous portfolio. Here you can get in contact with me.</p>
-      <p><b>Tech used:</b> Gatsby (React), Netlify, HTML, CSS</p>
+      <span>Identify buildings in photos and provide users with information about each building's history and significance</span>
+      <p><b>Tech used:</b> fastai, AWS, NextJS</p
     `,
+    viewScore: 0
+  } as ShowcaseObject,
+    {
+    url: new URL('https://compound-composer.alramalho.com'),
+    title: 'Project: <i>Compound Composer 💰</i>',
+    description: "Interests calculator & visualizer for retail investment",
     viewScore: 0
   } as ShowcaseObject,
   {
     url: new URL('https://blog.alramalho.com'),
     title: 'Blog 📝',
     description: `<span>BLOG: Personal Software Development & Testing blog</span>`,
-    viewScore: 0
-  } as ShowcaseObject,
-  {
-    url: new URL('https://www.radialcor.pt'),
-    title: 'Project: <i>Radialcor 🎨</i>',
-    description: `
-      <span>Live E-commerce website made by me with Django</span>
-      <p><b>Tech used:</b> AWS, Github Actions, Django, Wagtail, HTML, CSS</p
-    `,
-    viewScore: 0
-  } as ShowcaseObject,
-  {
-    url: new URL('https://compound-composer.alramalho.com'),
-    title: 'Project: <i>Compound Composer 💰</i>',
-    description: "Interests calculator & visualizer for retail investment",
     viewScore: 0
   } as ShowcaseObject,
   {
@@ -76,6 +67,15 @@ const ShowcaseObjects = [
       <p><b>Tech used:</b> AWS, AWS CDK, Github Actions, NextJS (React), Netlify, TailwindCSS</p>
     `,
     viewScore: 0
+  } as ShowcaseObject,
+  {
+  url: new URL('https://hire.alramalho.com'),
+  title: 'Contact me 📢',
+  description: `
+    <p>Previous portfolio. Here you can get in contact with me.</p>
+    <p><b>Tech used:</b> Gatsby (React), Netlify, HTML, CSS</p>
+  `,
+  viewScore: 0
   } as ShowcaseObject,
 ]
 
