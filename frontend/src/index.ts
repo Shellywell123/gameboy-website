@@ -100,7 +100,7 @@ function init() {
   camera.object.updateProjectionMatrix();
   createLights();
 
-  cube = new Cube(glScene, 800)
+  cube = new Cube(glScene, 900)
 
   ShowcaseObjects.forEach((object, index) => {
     if (index <= 3) {
