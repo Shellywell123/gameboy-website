@@ -113,7 +113,8 @@ function init() {
 
   update()
 
-  setInterval(updateEverySecond, 1000)
+  updateEveryQuarterSecond()
+  
 }
 
 function createLights() {
@@ -226,20 +227,15 @@ function updateCubeMenu() {
   })
 
   const cubeMenu: any = document.getElementsByClassName('cube-menu')[0]
-  cubeMenu.innerHTML = `<ul><p>On the cube</p>
+  cubeMenu.innerHTML = `<span>You're now viewing</span>
   ${ShowcaseObjects//.sort((a, b) => b.viewScore - a.viewScore)
     .map((object, index) => {
       if (getShowCaseObjectWithHighestViewscore().viewScore == object.viewScore) {
         if (cube.getFrontFace().url == object.url) {
-          return `<li><u style="text-decoration-color: var(--gameboyColor); text-decoration-thickness: 0.1rem">${object.title}</u></li>`
-        } else {
-          return `<li><u>${object.title}</u></li>`
+          return `<p style="text-decoration-color: var(--gameboyColor); text-decoration-thickness: 0.1rem">${object.title}</p>`
         }
-      } else {
-        return `<li>${object.title}</li>`
       }
     }).join('\n')}
-  </ul>
   `
 
   console.log(ShowcaseObjects)
@@ -344,25 +340,21 @@ export function fireControl(command: Action) {
       }
       break
     case "left":
+      cube.rotateOverYAxis(-Math.PI / 2)
       switch (STATE) {
         case "selected":
-          cube.bump("left")
-          playSound("error")
           break
         case "idle":
-          cube.rotateOverYAxis(-Math.PI / 2)
           changeFacets()
           break
       }
       break
     case "right":
+      cube.rotateOverYAxis(Math.PI / 2)
       switch (STATE) {
         case "selected":
-          cube.bump("right")
-          playSound("error")
           break
         case "idle":
-          cube.rotateOverYAxis(Math.PI / 2)
           changeFacets()
           break
       }
@@ -522,9 +514,11 @@ function createGameboy() {
   });
 }
 
-function updateEverySecond() {
-  updateInfoBanner()
-  updateCubeMenu()
+function updateEveryQuarterSecond() {
+  setInterval(() => {
+    updateInfoBanner()
+    updateCubeMenu()
+  }, 250)
 }
 
 function update() {
