@@ -39,8 +39,16 @@ interface ShowcaseObject {
 
 const ShowcaseObjects = [
   {
+    url: new URL('https://askpaper.ai'),
+    title: 'Ask Paper AI 🤖',
+    description: `
+      <p>AI powered tool to improve your research efficiency.</p>
+    `,
+    viewScore: 0
+    } as ShowcaseObject,
+  {
     url: new URL('https://city-explorer.alramalho.com'),
-    title: 'Project: <i>City Explorer 🏛</i>',
+    title: '<i>City Explorer 🏛</i>',
     description: `
       <span>Identify buildings in photos and provide users with information about each building's history and significance</span>
       <p><b>Tech used:</b> fastai, AWS, NextJS</p
@@ -49,7 +57,7 @@ const ShowcaseObjects = [
   } as ShowcaseObject,
     {
     url: new URL('https://compound-composer.alramalho.com'),
-    title: 'Project: <i>Compound Composer 💰</i>',
+    title: '<i>Compound Composer 💰</i>',
     description: "Interests calculator & visualizer for retail investment",
     viewScore: 0
   } as ShowcaseObject,
@@ -61,22 +69,13 @@ const ShowcaseObjects = [
   } as ShowcaseObject,
   {
     url: new URL('https://ipo-track.alramalho.com/'),
-    title: 'Open source Project: <i>IPO Track 🔔</i>',
+    title: '<i>IPO Track 🔔</i> (open sourced)',
     description: `
       <span>Webapp to get FREE IPO notifications [<a target="_blank" href="https://github.com/alramalho/ipo-track">source</a>]</span>
       <p><b>Tech used:</b> AWS, AWS CDK, Github Actions, NextJS (React), Netlify, TailwindCSS</p>
     `,
     viewScore: 0
-  } as ShowcaseObject,
-  {
-  url: new URL('https://hire.alramalho.com'),
-  title: 'Contact me 📢',
-  description: `
-    <p>Previous portfolio. Here you can get in contact with me.</p>
-    <p><b>Tech used:</b> Gatsby (React), Netlify, HTML, CSS</p>
-  `,
-  viewScore: 0
-  } as ShowcaseObject,
+  } as ShowcaseObject
 ]
 
 function init() {
