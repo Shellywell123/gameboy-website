@@ -414,7 +414,7 @@ export function fireControl(command: Action) {
       toggleHelpMenu()
       break
     case "select":
-      open("https://alramalhosandbox.s3.eu-west-1.amazonaws.com/Curriculo.pdf")
+      triggerKonami()
       break
   }
   last10Moves.enqueue(command)
