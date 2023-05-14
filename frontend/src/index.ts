@@ -47,7 +47,7 @@ const ShowcaseObjects = [
     viewScore: 0
     } as ShowcaseObject,
   {
-    url: new URL('https://city-explorer.alramalho.com'),
+    url: new URL('https://city-explorer.alexramalho.dev'),
     title: '<i>City Explorer 🏛</i>',
     description: `
       <span>Identify buildings in photos and provide users with information about each building's history and significance</span>
@@ -56,19 +56,19 @@ const ShowcaseObjects = [
     viewScore: 0
   } as ShowcaseObject,
     {
-    url: new URL('https://compound-composer.alramalho.com'),
+    url: new URL('https://compound-composer.alexramalho.dev'),
     title: '<i>Compound Composer 💰</i>',
     description: "Interests calculator & visualizer for retail investment",
     viewScore: 0
   } as ShowcaseObject,
   {
-    url: new URL('https://blog.alramalho.com'),
+    url: new URL('https://blog.alexramalho.dev'),
     title: 'Blog 📝',
     description: `<span>BLOG: Personal Software Development & Testing blog</span>`,
     viewScore: 0
   } as ShowcaseObject,
   {
-    url: new URL('https://ipo-track.alramalho.com/'),
+    url: new URL('https://ipo-track.alexramalho.dev/'),
     title: '<i>IPO Track 🔔</i> (open sourced)',
     description: `
       <span>Webapp to get FREE IPO notifications [<a target="_blank" href="https://github.com/alramalho/ipo-track">source</a>]</span>
