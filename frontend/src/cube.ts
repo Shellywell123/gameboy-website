@@ -12,11 +12,11 @@ class CubeFace {
     this.description = description
   }
 
-  async computeTexture(imageOverride?: string) {
+  async computeTexture(imageUrl?: string) {
     const image = new Image();
     let texture = new THREE.Texture();
-    if (imageOverride !== undefined) {
-      image.src = <string>await toDataURL(imageOverride)
+    if (imageUrl !== undefined) {
+      image.src = <string>await toDataURL(imageUrl)
     } else {
       image.src = <string>await toDataURL(this.getImageUrl(this.url))
     }
@@ -150,10 +150,10 @@ class Cube {
     }
   }
 
-  async assignFacet(url: URL, title: string, description: string, imageOverride: string | undefined = undefined) {
+  async assignFacet(url: URL, title: string, description: string, imageUrl: string | undefined = undefined) {
     const faceIndex = this.getAvailableFaceIndex()
     this.faces[faceIndex] = new CubeFace(url, title, description)
-    await this.faces[faceIndex].computeTexture(imageOverride)
+    await this.faces[faceIndex].computeTexture(imageUrl)
 
     this.materialArray[faceIndex] = new THREE.MeshBasicMaterial({ map: this.faces[faceIndex].texture });
     this.mesh.material = this.materialArray

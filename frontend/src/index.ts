@@ -34,7 +34,7 @@ interface ShowcaseObject {
   title: string
   description: string
   viewScore: number
-  imageOverride?: string
+  imageUrl?: string // this needs to be of content/type "binary/octet-stream"
 }
 
 const ShowcaseObjects = [
@@ -45,7 +45,7 @@ const ShowcaseObjects = [
       <p>AI powered tool to improve your research efficiency.</p>
     `,
     viewScore: 0,
-    imageOverride: 'https://alramalhosandbox.s3.eu-west-1.amazonaws.com/screenshots/askpaperdemo.png'
+    imageUrl: 'https://alramalhosandbox.s3.eu-west-1.amazonaws.com/screenshots/askpaperdemo.png'
   } as ShowcaseObject,
   {
     url: new URL('https://hippoai.org'),
@@ -54,7 +54,7 @@ const ShowcaseObjects = [
         <p>Concept & Design for Hippo AI Foundation.</p>
       `,
     viewScore: 0,
-    imageOverride: 'https://alramalhosandbox.s3.eu-west-1.amazonaws.com/screenshots/hippoaidemo.png'
+    imageUrl: 'https://alramalhosandbox.s3.eu-west-1.amazonaws.com/screenshots/hippoaidemo.png'
   } as ShowcaseObject,
   {
     url: new URL('https://city-explorer.alexramalho.dev'),
@@ -114,7 +114,7 @@ function init() {
 
   ShowcaseObjects.forEach((object, index) => {
     if (index <= 3) {
-      cube.assignFacet(object.url, object.title, object.description, object.imageOverride)
+      cube.assignFacet(object.url, object.title, object.description, object.imageUrl)
     }
   })
 
@@ -319,7 +319,7 @@ export function fireControl(command: Action) {
   function changeFacets(): void {
     if (ShowcaseObjects.length > 4) {
       const object = getShowCaseObjectWithLowestViewscore()
-      cube.assignFacet(object.url, object.title, object.description, object.imageOverride)
+      cube.assignFacet(object.url, object.title, object.description, object.imageUrl)
       object.viewScore += 1
     }
   }
