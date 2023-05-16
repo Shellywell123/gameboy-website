@@ -350,6 +350,7 @@ export function fireControl(command: Action) {
       break
     case "left":
       cube.rotateOverYAxis(-Math.PI / 2)
+      showAndUpdatePopup()
       switch (STATE) {
         case "selected":
           break
@@ -357,9 +358,11 @@ export function fireControl(command: Action) {
           changeFacets()
           break
       }
+      
       break
     case "right":
       cube.rotateOverYAxis(Math.PI / 2)
+      showAndUpdatePopup()
       switch (STATE) {
         case "selected":
           break
