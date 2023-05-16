@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  Deploy-To-Sandbox:
+  Deploy:
     runs-on: ubuntu-latest
     steps:
 
@@ -28,7 +28,6 @@ jobs:
           unzip awscliv2.zip
           sudo ./aws/install --update
           aws --version
-          aws -h
 
 
 
