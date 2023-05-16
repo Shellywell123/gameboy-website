@@ -73,9 +73,9 @@ const ShowcaseObjects = [
     viewScore: 0
   } as ShowcaseObject,
   {
-    url: new URL('https://blog.alexramalho.dev'),
+    url: new URL("https://hackernoon.com/about/alramalho"),
     title: 'Blog 📝',
-    description: `<span>BLOG: Personal Software Development & Testing blog</span>`,
+    description: `<span>Hackernoon Blog 📝: Personal Software Development & Testing blog. <strong>2x nominated for Contributor of the Year</strong></span>`,
     viewScore: 0
   } as ShowcaseObject,
   {
