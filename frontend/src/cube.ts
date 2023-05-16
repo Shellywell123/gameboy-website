@@ -12,20 +12,20 @@ class CubeFace {
     this.description = description
   }
 
-  async computeTexture(imageOverride: string | undefined = undefined) {
+  async computeTexture(imageOverride?: string) {
     const image = new Image();
     let texture = new THREE.Texture();
-    if (imageOverride) {
-      image.src = imageOverride
+    if (imageOverride !== undefined) {
+      image.src = <string>await toDataURL(imageOverride)
     } else {
       image.src = <string>await toDataURL(this.getImageUrl(this.url))
-      image.onload = function () {
-        texture.needsUpdate = true;
-      };
-      image.onload = () => {
-        texture.needsUpdate = true
-      };
     }
+    image.onload = function () {
+      texture.needsUpdate = true;
+    };
+    image.onload = () => {
+      texture.needsUpdate = true
+    };
     texture.image = image;
     this.texture = texture
   }

@@ -1,12 +1,11 @@
 import * as THREE from "three"
-import {getGPUTier} from "detect-gpu";
+import { getGPUTier } from "detect-gpu";
 
 import Cube from "./cube";
 import Camera from "./camera";
-import {Queue} from "./queue";
+import { Queue } from "./queue";
 
 const gpu = getGPUTier();
-console.log(gpu);
 
 type Action =
   "left"
@@ -46,17 +45,17 @@ const ShowcaseObjects = [
       <p>AI powered tool to improve your research efficiency.</p>
     `,
     viewScore: 0,
-    imageOverride: 'https://askpaper.ai/demo.png'
-    } as ShowcaseObject,
-    {
-      url: new URL('https://hippoai.org'),
-      title: 'Hippo AI Foundation Page 🎨',
-      description: `
+    imageOverride: 'https://alramalhosandbox.s3.eu-west-1.amazonaws.com/screenshots/askpaperdemo.png'
+  } as ShowcaseObject,
+  {
+    url: new URL('https://hippoai.org'),
+    title: 'Hippo AI Foundation Page 🎨',
+    description: `
         <p>Concept & Design for Hippo AI Foundation.</p>
       `,
-      viewScore: 0,
-      imageOverride: 'https://www.hippoai.org/cover.jpg'
-      } as ShowcaseObject,
+    viewScore: 0,
+    imageOverride: 'https://alramalhosandbox.s3.eu-west-1.amazonaws.com/screenshots/hippoaidemo.png'
+  } as ShowcaseObject,
   {
     url: new URL('https://city-explorer.alexramalho.dev'),
     title: '<i>City Explorer 🏛</i>',
@@ -66,7 +65,7 @@ const ShowcaseObjects = [
     `,
     viewScore: 0
   } as ShowcaseObject,
-    {
+  {
     url: new URL('https://compound-composer.alexramalho.dev'),
     title: '<i>Compound Composer 💰</i>',
     description: "Interests calculator & visualizer for retail investment",
@@ -90,6 +89,7 @@ const ShowcaseObjects = [
 ]
 
 function init() {
+  console.log('⭐ Konami? ⭐')
 
   container = document.querySelector('.display');
 
@@ -125,7 +125,7 @@ function init() {
   update()
 
   updateEveryQuarterSecond()
-  
+
 }
 
 function createLights() {
@@ -145,7 +145,7 @@ function createLights() {
 }
 
 function createGlRenderer() {
-  var glRenderer = new THREE.WebGLRenderer({alpha: true});
+  var glRenderer = new THREE.WebGLRenderer({ alpha: true });
 
   glRenderer.setClearColor(`#2f2f2f`);
   glRenderer.setPixelRatio(window.devicePixelRatio);
@@ -240,16 +240,15 @@ function updateCubeMenu() {
   const cubeMenu: any = document.getElementsByClassName('cube-menu')[0]
   cubeMenu.innerHTML = `<span>You're now viewing</span>
   ${ShowcaseObjects//.sort((a, b) => b.viewScore - a.viewScore)
-    .map((object, index) => {
-      if (getShowCaseObjectWithHighestViewscore().viewScore == object.viewScore) {
-        if (cube.getFrontFace().url == object.url) {
-          return `<p style="text-decoration-color: var(--gameboyColor); text-decoration-thickness: 0.1rem">${object.title}</p>`
+      .map((object, index) => {
+        if (getShowCaseObjectWithHighestViewscore().viewScore == object.viewScore) {
+          if (cube.getFrontFace().url == object.url) {
+            return `<p style="text-decoration-color: var(--gameboyColor); text-decoration-thickness: 0.1rem">${object.title}</p>`
+          }
         }
-      }
-    }).join('\n')}
+      }).join('\n')}
   `
 
-  console.log(ShowcaseObjects)
 }
 
 function hidePopup() {
@@ -287,7 +286,6 @@ function triggerKonami() {
     document.documentElement.style.setProperty('--gameboyColor', gameboyColors[Math.floor(Math.random() * gameboyColors.length)]);
   }
 
-  console.log('⭐ Konami ⭐')
   playSound('konami')
 
   const r = setInterval(() => {
@@ -321,7 +319,7 @@ export function fireControl(command: Action) {
   function changeFacets(): void {
     if (ShowcaseObjects.length > 4) {
       const object = getShowCaseObjectWithLowestViewscore()
-      cube.assignFacet(object.url, object.title, object.description)
+      cube.assignFacet(object.url, object.title, object.description, object.imageOverride)
       object.viewScore += 1
     }
   }
