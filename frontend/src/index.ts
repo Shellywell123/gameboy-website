@@ -35,6 +35,7 @@ interface ShowcaseObject {
   title: string
   description: string
   viewScore: number
+  imageOverride?: string
 }
 
 const ShowcaseObjects = [
@@ -44,8 +45,18 @@ const ShowcaseObjects = [
     description: `
       <p>AI powered tool to improve your research efficiency.</p>
     `,
-    viewScore: 0
+    viewScore: 0,
+    imageOverride: 'https://askpaper.ai/demo.png'
     } as ShowcaseObject,
+    {
+      url: new URL('https://hippoai.org'),
+      title: 'Hippo AI Foundation Page 🎨',
+      description: `
+        <p>Concept & Design for Hippo AI Foundation.</p>
+      `,
+      viewScore: 0,
+      imageOverride: 'https://www.hippoai.org/cover.jpg'
+      } as ShowcaseObject,
   {
     url: new URL('https://city-explorer.alexramalho.dev'),
     title: '<i>City Explorer 🏛</i>',
@@ -103,7 +114,7 @@ function init() {
 
   ShowcaseObjects.forEach((object, index) => {
     if (index <= 3) {
-      cube.assignFacet(object.url, object.title, object.description)
+      cube.assignFacet(object.url, object.title, object.description, object.imageOverride)
     }
   })
 

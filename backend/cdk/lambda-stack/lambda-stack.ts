@@ -27,7 +27,7 @@ export class LambdaStack extends Stack {
       layers: [layer],
       timeout: Duration.minutes(2),
       environment: {
-        URLS: 'https://ipo-track.alexramalho.dev/|https://blog.alexramalho.dev|https://hire.alexramalho.dev|https://city-explorer.alexramalho.dev|https://compound-composer.alexramalho.dev|https://askpaper.ai',
+        URLS: 'https://ipo-track.alexramalho.dev/|https://blog.alexramalho.dev|https://hire.alexramalho.dev|https://city-explorer.alexramalho.dev|https://compound-composer.alexramalho.dev|https://askpaper.ai|https://hippoai.org',
         BUCKET: 'alramalhosandbox',
         DESTPATH: 'screenshots',
       },

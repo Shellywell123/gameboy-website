@@ -12,17 +12,21 @@ class CubeFace {
     this.description = description
   }
 
-  async computeTexture() {
+  async computeTexture(imageOverride: string | undefined = undefined) {
     const image = new Image();
-    image.src = <string>await toDataURL(this.getImageUrl(this.url))
     let texture = new THREE.Texture();
+    if (imageOverride) {
+      image.src = imageOverride
+    } else {
+      image.src = <string>await toDataURL(this.getImageUrl(this.url))
+      image.onload = function () {
+        texture.needsUpdate = true;
+      };
+      image.onload = () => {
+        texture.needsUpdate = true
+      };
+    }
     texture.image = image;
-    image.onload = function () {
-      texture.needsUpdate = true;
-    };
-    image.onload = () => {
-      texture.needsUpdate = true
-    };
     this.texture = texture
   }
 
@@ -50,12 +54,12 @@ class Cube {
     this.glScene.add(this.mesh)
     this.side = side
     this.materialArray = [
-      new THREE.MeshPhongMaterial({color: `#e5e5e5`, opacity: 0.5}),
-      new THREE.MeshPhongMaterial({color: `#e5e5e5`, opacity: 0.5}),
-      new THREE.MeshPhongMaterial({color: `#e5e5e5`, opacity: 0.5}),
-      new THREE.MeshPhongMaterial({color: `#e5e5e5`, opacity: 0.5}),
-      new THREE.MeshPhongMaterial({color: `#e5e5e5`, opacity: 0.5}),
-      new THREE.MeshPhongMaterial({color: `#e5e5e5`, opacity: 0.5})
+      new THREE.MeshPhongMaterial({ color: `#e5e5e5`, opacity: 0.5 }),
+      new THREE.MeshPhongMaterial({ color: `#e5e5e5`, opacity: 0.5 }),
+      new THREE.MeshPhongMaterial({ color: `#e5e5e5`, opacity: 0.5 }),
+      new THREE.MeshPhongMaterial({ color: `#e5e5e5`, opacity: 0.5 }),
+      new THREE.MeshPhongMaterial({ color: `#e5e5e5`, opacity: 0.5 }),
+      new THREE.MeshPhongMaterial({ color: `#e5e5e5`, opacity: 0.5 })
     ]
     this.targetRotation = new THREE.Euler(
       this.mesh.rotation.x,
@@ -80,11 +84,11 @@ class Cube {
     switch (side) {
       case "left":
         this.rotateOverYAxis(-Math.PI / 16)
-        setTimeout(() => this.rotateOverYAxis(Math.PI/16), 100)
+        setTimeout(() => this.rotateOverYAxis(Math.PI / 16), 100)
         break
       case "right":
         this.rotateOverYAxis(Math.PI / 16)
-        setTimeout(() => this.rotateOverYAxis(-Math.PI/16), 100)
+        setTimeout(() => this.rotateOverYAxis(-Math.PI / 16), 100)
         break
     }
   }
@@ -95,9 +99,9 @@ class Cube {
 
   getNumberOfAvailableFaces(): number {
     let count = 6
-      this.faces.forEach(face => {
-        face !== null ? count-- : null
-      })
+    this.faces.forEach(face => {
+      face !== null ? count-- : null
+    })
     return count
   }
 
@@ -105,7 +109,7 @@ class Cube {
     return this.faces[this.getFrontFaceIndex(baseRotation)]
   }
   // axis is shifted (4th face is first, then (left rotation) 1st, 5th and 0th)
-  getFrontFaceIndex(baseRotation: number ): number {
+  getFrontFaceIndex(baseRotation: number): number {
     let y = (-Math.PI / 4) + (baseRotation + Math.PI / 2) % (2 * Math.PI);
     if (y >= 0) {
       if (y < Math.PI / 2) {
@@ -146,13 +150,12 @@ class Cube {
     }
   }
 
-  async assignFacet(url: URL, title: string, description: string) {
+  async assignFacet(url: URL, title: string, description: string, imageOverride: string | undefined = undefined) {
     const faceIndex = this.getAvailableFaceIndex()
     this.faces[faceIndex] = new CubeFace(url, title, description)
-    // httpswwwalramalhocom-2022-01-fixed.png
-    await this.faces[faceIndex].computeTexture()
+    await this.faces[faceIndex].computeTexture(imageOverride)
 
-    this.materialArray[faceIndex] = new THREE.MeshBasicMaterial({map: this.faces[faceIndex].texture});
+    this.materialArray[faceIndex] = new THREE.MeshBasicMaterial({ map: this.faces[faceIndex].texture });
     this.mesh.material = this.materialArray
   }
 
