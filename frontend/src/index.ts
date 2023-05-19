@@ -257,11 +257,12 @@ function hidePopup() {
 }
 
 function showAndUpdatePopup() {
-  const popup: any = document.getElementsByClassName('popup')[0]
-  popup.style.display = 'block';
-  const frontFace = cube.getFrontFace()
-  popup.onclick = () => open(frontFace.url.toString())
-  popup.innerHTML = `
+  if (typeof window !== 'undefined' && window.innerWidth > 768) {
+    const popup: any = document.getElementsByClassName('popup')[0]
+    popup.style.display = 'block';
+    const frontFace = cube.getFrontFace()
+    popup.onclick = () => open(frontFace.url.toString())
+    popup.innerHTML = `
     <div style="display: flex; flex-direction: column; align-items: center; line-height: 2rem">
       <div>
           <img style="height: 3rem" src="../assets/a.png" alt="A"></img>
@@ -271,6 +272,7 @@ function showAndUpdatePopup() {
       <span>to visit <i>${frontFace.title}</i> &rarr;</span>
       </div>
     `
+  }
 }
 
 function updateInfoBanner() {
@@ -358,7 +360,7 @@ export function fireControl(command: Action) {
           changeFacets()
           break
       }
-      
+
       break
     case "right":
       cube.rotateOverYAxis(Math.PI / 2)
