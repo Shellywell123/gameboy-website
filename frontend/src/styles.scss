@@ -508,3 +508,15 @@ h1 {
     padding-right: 4rem;
   }
 }
+
+.social {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+
+  div {
+    cursor: pointer;
+  }
+}
