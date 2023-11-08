@@ -1,3 +1,4 @@
 # website code powering https://alexramalho.dev
 
-<img width="385" alt="image" src="https://github.com/alramalho/website/assets/47791391/26d25f54-0f06-48fe-b648-d3eabc969df1">
+<img width="386" alt="image" src="https://github.com/alramalho/website/assets/47791391/e3ae7e21-a18e-49c1-80f2-18a5b1a14c1b">
+
