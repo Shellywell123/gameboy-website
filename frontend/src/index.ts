@@ -1,8 +1,8 @@
-import * as THREE from "three"
 import { getGPUTier } from "detect-gpu";
+import * as THREE from "three";
 
-import Cube from "./cube";
 import Camera from "./camera";
+import Cube from "./cube";
 import { Queue } from "./queue";
 
 const gpu = getGPUTier();
