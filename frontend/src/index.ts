@@ -39,6 +39,14 @@ interface ShowcaseObject {
 
 const ShowcaseObjects = [
   {
+    url: new URL('https://heyjarvis.co'),
+    title: 'Jarvis 🤖',
+    description: `
+      <h4>Your human-level AI assistant.</h4>
+    `,
+    viewScore: 0,
+  } as ShowcaseObject,
+  {
     url: new URL('https://askpaper.ai'),
     title: 'Ask Paper AI 🤖',
     description: `
