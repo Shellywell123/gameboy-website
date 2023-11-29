@@ -43,4 +43,4 @@ jobs:
         run: |
           cd ./backend
           yarn
-          cdk deploy
+          yarn fast-deploy
