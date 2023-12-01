@@ -9,8 +9,8 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "diff": "cdk diff --profile portfolio",
-    "deploy": "cdk deploy --profile portfolio",
+    "diff": "cdk diff",
+    "deploy": "cdk deploy",
     "synth": "echo '\n️\\0033[43;1m ⚠ Consider running `yarn diff` to check differences ⚠\\0033[0m️\n️' &&  rm -rf cdk.out && cdk synth",
     "fast-deploy": "yarn synth && yarn deploy --require-approval never --all"
   },
