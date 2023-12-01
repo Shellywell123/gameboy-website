@@ -39,7 +39,7 @@ interface ShowcaseObject {
 
 const ShowcaseObjects = [
   {
-    url: new URL('https://heyjarvis.co'),
+    url: new URL('https://www.heyjarvis.co'),
     title: 'Jarvis 🤖',
     description: `
       <h4>Your human-level AI assistant.</h4>
