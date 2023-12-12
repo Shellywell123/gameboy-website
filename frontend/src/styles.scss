@@ -523,9 +523,13 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   gap: 5px;
   z-index: 1000;
+  color: black;
+  font-family: monospace;
+  font-weight: 600;
+  font-size: larger;
 
   div {
     cursor: pointer;
@@ -533,5 +537,13 @@ h1 {
 
   svg {
     fill: #000;
+  }
+
+  .last-social {
+    display: flex;
+    max-height: 25px;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
   }
 }
