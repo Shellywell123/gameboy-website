@@ -1,12 +1,15 @@
 # Gameboy project showcase website
+
+This is the source code powering https://alexramalho.dev. 
+It displays a rotating cube with each face being a project of mine. 
+Everyday, the websites are screenshoted and latest screenshot is used as a face.
+
 | desktop  | mobile  |
 |---|---|
 |  <img src="https://github.com/alramalho/gameboy-website/assets/47791391/ed5d16c7-18f1-47eb-af5f-61f00317b44f" alt="Gameboy" style="display: block; margin-left: auto; margin-right: auto; width: 600px;"> | <img src="https://github.com/alramalho/gameboy-website/assets/47791391/0018d421-d341-4d0a-aaf9-5e7c256b9eb5" alt="Gameboy" style="display: block; margin-left: auto; margin-right: auto; width: 200px;">|
 | Controls: keyboard | touch |
 
-This is the source code powering https://alexramalho.dev. 
-It displays a rotating cube with each face being a project of mine. 
-Everyday, the websites are screenshot
+
 
 ### Tech stack
 - Frontend: HTML, CSS, JS (w/ TS) & [Three JS](https://threejs.org/) for the 3D scene renderinig.
