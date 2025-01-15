@@ -1,0 +1,9 @@
+services:
+  spelling-bee:
+    container_name: gameboy-website
+    build:
+      context: .
+    ports:
+      - 1234:1234
+    volumes:
+      - ./frontend/:/app
