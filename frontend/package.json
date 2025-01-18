@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "start": "yarn build && parcel index.html",
+    "start": "yarn build && npx parcel index.html",
     "prebuild": "rm -rf dist && mkdir -p dist/assets && cp -R src/assets dist",
-    "build": "parcel build index.html src/assets/**/*"
+    "build": "npx parcel build index.html src/assets/**/*"
   },
   "dependencies": {
     "detect-gpu": "0.0.40",

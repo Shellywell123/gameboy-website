@@ -39,60 +39,35 @@ interface ShowcaseObject {
 
 const ShowcaseObjects = [
   {
-    url: new URL('https://www.heyjarvis.co'),
-    title: 'Jarvis 🤖',
-    description: `
-      <h4>Your human-level AI assistant.</h4>
-    `,
+    url: new URL('https://www.github.com/shellywell123'),
+    title: `lol`,
+    description: `lol`,
     viewScore: 0,
+    imageUrl: 'https://raw.githubusercontent.com/Shellywell123/shellywell123.dev/refs/heads/main/tree/games/attachments/GB.png'
   } as ShowcaseObject,
   {
-    url: new URL('https://askpaper.ai'),
-    title: 'Ask Paper AI 🤖',
-    description: `
-      <p>AI powered tool to improve your research efficiency.</p>
-    `,
+    url: new URL('https://www.github.com/shellywell123'),
+    title: `lol`,
+    description: `lol`,
     viewScore: 0,
-    imageUrl: 'https://alramalhosandbox.s3.eu-west-1.amazonaws.com/screenshots/askpaperdemo.png'
+    imageUrl: 'https://raw.githubusercontent.com/Shellywell123/shellywell123.dev/refs/heads/main/tree/games/attachments/GB.png'
   } as ShowcaseObject,
   {
-    url: new URL('https://hippoai.org'),
-    title: 'Hippo AI Foundation Page 🎨',
-    description: `
-        <p>Concept & Design for Hippo AI Foundation.</p>
-      `,
+    url: new URL('https://www.github.com/shellywell123'),
+    title: 'GitHub 📝',
+    description: `<span> git 📝: Personal Software Development & Testing blog. <strong>2x nominated for Contributor of the Year</strong></span>`,
     viewScore: 0,
-    imageUrl: 'https://alramalhosandbox.s3.eu-west-1.amazonaws.com/screenshots/hippoaidemo.png'
+    imageUrl: 'https://avatars.githubusercontent.com/u/44142139?v=4'
   } as ShowcaseObject,
   {
-    url: new URL('https://city-explorer.alexramalho.dev'),
-    title: '<i>City Explorer 🏛</i>',
-    description: `
-      <span>Identify buildings in photos and provide users with information about each building's history and significance</span>
-      <p><b>Tech used:</b> fastai, AWS, NextJS</p
-    `,
-    viewScore: 0
-  } as ShowcaseObject,
-  {
-    url: new URL('https://compound-composer.alexramalho.dev'),
-    title: '<i>Compound Composer 💰</i>',
-    description: "Interests calculator & visualizer for retail investment",
-    viewScore: 0
-  } as ShowcaseObject,
-  {
-    url: new URL("https://hackernoon.com/about/alramalho"),
-    title: 'Blog 📝',
-    description: `<span>Hackernoon Blog 📝: Personal Software Development & Testing blog. <strong>2x nominated for Contributor of the Year</strong></span>`,
-    viewScore: 0
-  } as ShowcaseObject,
-  {
-    url: new URL('https://ipo-track.alexramalho.dev/'),
-    title: '<i>IPO Track 🔔</i> (open sourced)',
+    url: new URL('https://www.linkedin.com/in/ben-shellswell/'),
+    title: '<i>Linkdin 🔔</i> (open sourced)',
     description: `
       <span>Webapp to get FREE IPO notifications [<a target="_blank" href="https://github.com/alramalho/ipo-track">source</a>]</span>
       <p><b>Tech used:</b> AWS, AWS CDK, Github Actions, NextJS (React), Netlify, TailwindCSS</p>
     `,
-    viewScore: 0
+    viewScore: 0,
+    imageUrl: 'https://media.licdn.com/dms/image/v2/D4E03AQEfgCa6_ql2Sg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718295437492?e=1742428800&v=beta&t=HqltuLRFuEWAB_GZQrY9BboSeKso33L_lmMGrC4iOcg'
   } as ShowcaseObject
 ]
 
@@ -129,9 +104,7 @@ function init() {
   createGameboy();
   showCubeMenu()
   updateCubeMenu()
-
   update()
-
   updateEveryQuarterSecond()
 
 }
@@ -343,8 +316,15 @@ export function fireControl(command: Action) {
           showInfoBanner()
           break
         case "idle":
-          playSound('error')
-          break
+          // playSound('error')
+          // break
+          cube.rotateOverZAxis(-Math.PI / 2) // TODO figure out up and down rotation
+          // showAndUpdatePopup()
+          // switch (STATE) {
+          //     changeFacets()
+          //     break
+          // }
+
       }
       break
     case "down":

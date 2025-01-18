@@ -1,5 +1,8 @@
 # Gameboy project showcase website
 
+```
+cd frontend && sudo chmod -R 777 . && docker compose up
+```
 This is the source code powering https://alexramalho.dev. 
 It displays a rotating cube with each face being a project of mine. 
 Everyday, the websites are screenshoted and latest screenshot is used as a face.

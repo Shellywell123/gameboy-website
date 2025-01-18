@@ -18,7 +18,7 @@ class CubeFace {
     if (imageUrl !== undefined) {
       image.src = <string>await toDataURL(imageUrl)
     } else {
-      image.src = <string>await toDataURL(this.getImageUrl(this.url))
+      image.src = <string>await toDataURL('https://cdn4.vectorstock.com/i/1000x1000/09/83/question-mark-in-circle-pixel-game-icon-vector-28300983.jpg')
     }
     image.onload = function () {
       texture.needsUpdate = true;
@@ -84,7 +84,7 @@ class Cube {
     switch (side) {
       case "left":
         this.rotateOverYAxis(-Math.PI / 16)
-        setTimeout(() => this.rotateOverYAxis(Math.PI / 16), 100)
+        setTimeout(() => this.rotateOverYAxis(Math.PI / 16 ), 100)
         break
       case "right":
         this.rotateOverYAxis(Math.PI / 16)
@@ -93,8 +93,16 @@ class Cube {
     }
   }
 
+  rotateOverXAxis(amount: number) {
+    this.targetRotation.x += amount
+  }
+
   rotateOverYAxis(amount: number) {
     this.targetRotation.y += amount
+  }
+
+  rotateOverZAxis(amount: number) {
+    this.targetRotation.z += amount
   }
 
   getNumberOfAvailableFaces(): number {
@@ -153,7 +161,12 @@ class Cube {
   async assignFacet(url: URL, title: string, description: string, imageUrl: string | undefined = undefined) {
     const faceIndex = this.getAvailableFaceIndex()
     this.faces[faceIndex] = new CubeFace(url, title, description)
-    await this.faces[faceIndex].computeTexture(imageUrl)
+
+    // if (imageUrl !== undefined) {
+    //   imageUrl = 'https://cdn4.vectorstock.com/i/1000x1000/09/83/question-mark-in-circle-pixel-game-icon-vector-28300983.jpg'
+    // } else {
+    await this.faces[faceIndex].computeTexture(imageUrl)  
+    // }
 
     this.materialArray[faceIndex] = new THREE.MeshBasicMaterial({ map: this.faces[faceIndex].texture });
     this.mesh.material = this.materialArray
