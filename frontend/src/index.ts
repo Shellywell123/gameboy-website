@@ -39,35 +39,35 @@ interface ShowcaseObject {
 
 const ShowcaseObjects = [
   {
-    url: new URL('https://www.github.com/shellywell123'),
-    title: `lol`,
+    // url: new URL('https://www.github.com/shellywell123'),
+    title: ``,
     description: `lol`,
     viewScore: 0,
-    imageUrl: 'https://raw.githubusercontent.com/Shellywell123/shellywell123.dev/refs/heads/main/tree/games/attachments/GB.png'
+    imageUrl: './src/assets/question-mark.png'
   } as ShowcaseObject,
   {
-    url: new URL('https://www.github.com/shellywell123'),
-    title: `lol`,
+    // url: new URL('https://www.github.com/shellywell123'),
+    title: ``,
     description: `lol`,
     viewScore: 0,
-    imageUrl: 'https://raw.githubusercontent.com/Shellywell123/shellywell123.dev/refs/heads/main/tree/games/attachments/GB.png'
+    imageUrl: './src/assets/question-mark.png'
   } as ShowcaseObject,
   {
     url: new URL('https://www.github.com/shellywell123'),
     title: 'GitHub 📝',
     description: `<span> git 📝: Personal Software Development & Testing blog. <strong>2x nominated for Contributor of the Year</strong></span>`,
     viewScore: 0,
-    imageUrl: 'https://avatars.githubusercontent.com/u/44142139?v=4'
+    imageUrl: './src/assets/github.png'
   } as ShowcaseObject,
   {
     url: new URL('https://www.linkedin.com/in/ben-shellswell/'),
-    title: '<i>Linkdin 🔔</i> (open sourced)',
+    title: 'Linkedin',
     description: `
       <span>Webapp to get FREE IPO notifications [<a target="_blank" href="https://github.com/alramalho/ipo-track">source</a>]</span>
       <p><b>Tech used:</b> AWS, AWS CDK, Github Actions, NextJS (React), Netlify, TailwindCSS</p>
     `,
     viewScore: 0,
-    imageUrl: 'https://media.licdn.com/dms/image/v2/D4E03AQEfgCa6_ql2Sg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718295437492?e=1742428800&v=beta&t=HqltuLRFuEWAB_GZQrY9BboSeKso33L_lmMGrC4iOcg'
+    imageUrl: './src/assets/linkedin.png'
   } as ShowcaseObject
 ]
 
@@ -128,7 +128,7 @@ function createLights() {
 function createGlRenderer() {
   var glRenderer = new THREE.WebGLRenderer({ alpha: true });
 
-  glRenderer.setClearColor(`#2f2f2f`);
+  glRenderer.setClearColor(`#e0f8d0`);
   glRenderer.setPixelRatio(window.devicePixelRatio);
   glRenderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -265,6 +265,11 @@ function updateInfoBanner() {
 }
 
 function triggerKonami() {
+
+  function resetGameboyColor() {
+    document.documentElement.style.setProperty('--gameboyColor', `#E5D6CB`);
+  }
+
   function assignGameboyRandomColor() {
     document.documentElement.style.setProperty('--gameboyColor', gameboyColors[Math.floor(Math.random() * gameboyColors.length)]);
   }
@@ -277,7 +282,8 @@ function triggerKonami() {
 
   setInterval(() => {
     clearInterval(r)
-  }, 1000)
+    resetGameboyColor()
+  }, 1000)  
 }
 
 function cameraMoveUpToShowInfoBanner() {
