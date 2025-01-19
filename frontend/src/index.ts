@@ -39,35 +39,32 @@ interface ShowcaseObject {
 
 const ShowcaseObjects = [
   {
-    // url: new URL('https://www.github.com/shellywell123'),
-    title: ``,
-    description: `lol`,
+    url: new URL('https://www.linkedin.com/in/ben-shellswell/'),
+    title: 'Linkedin',
+    description: `<span> Get in touch with me via linkedin. </span>`,
     viewScore: 0,
-    imageUrl: './src/assets/question-mark.png'
-  } as ShowcaseObject,
-  {
-    // url: new URL('https://www.github.com/shellywell123'),
-    title: ``,
-    description: `lol`,
-    viewScore: 0,
-    imageUrl: './src/assets/question-mark.png'
+    imageUrl: './src/assets/linkedin.png'
   } as ShowcaseObject,
   {
     url: new URL('https://www.github.com/shellywell123'),
-    title: 'GitHub 📝',
-    description: `<span> git 📝: Personal Software Development & Testing blog. <strong>2x nominated for Contributor of the Year</strong></span>`,
+    title: 'GitHub',
+    description: `<span> The home to all the code for my projects.</span>`,
     viewScore: 0,
     imageUrl: './src/assets/github.png'
   } as ShowcaseObject,
   {
-    url: new URL('https://www.linkedin.com/in/ben-shellswell/'),
-    title: 'Linkedin',
-    description: `
-      <span>Webapp to get FREE IPO notifications [<a target="_blank" href="https://github.com/alramalho/ipo-track">source</a>]</span>
-      <p><b>Tech used:</b> AWS, AWS CDK, Github Actions, NextJS (React), Netlify, TailwindCSS</p>
-    `,
+    url: new URL('https://shellywell123.github.io/Grind-Boy.gb/build/web/index.html'),
+    title: `Grind Boy .gb`,
+    description: `<span>Homebrew Skateboarding platformer game for the Nintendo GameBoy.</span>`,
     viewScore: 0,
-    imageUrl: './src/assets/linkedin.png'
+    imageUrl: './src/assets/grind-boy.png'
+  } as ShowcaseObject,
+  {
+    // url: new URL('https://www.github.com/shellywell123'),
+    title: ``,
+    description: `Nothing here yet`,
+    viewScore: 0,
+    imageUrl: './src/assets/question-mark.png'
   } as ShowcaseObject
 ]
 
