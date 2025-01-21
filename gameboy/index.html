@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Ninbendo</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="HTML, CSS, Gameboy, Color, Nintendo, Alex, Al, Alexandre, Ramalho">
+  <meta name="author" content="Alexandre Ramalho">
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="src/styles.scss" />
+  <link rel="icon" href="src/assets/game-boy.ico" />
+  <meta name="viewport" content="width=device-width">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+  <div class="gameboy">
+    <div class="display-wrapper">
+      <div class="display sepia">
+        <div class="help-menu">
+          <!-- <div class="title">Help menu</div> -->
+          <div class="content">
+            <h3>Controls</h3>
+            <p>&uarr; — Show info banner & Move cube up (only in selected stage)</p>
+            <p>&darr; — Hide info banner & Move cube up (only in selected stage)</p>
+            <p>&larr; — Rotate cube left (only in initial stage)</p>
+            <p>&rarr; — Rotate cube right (only in initial stage)</p>
+            <p>A — Select</p>
+            <p>B — Retrocede</p>
+            <p>Start — Show/hide controls</p>
+            <p>Select — Open CV</p>
+            <h3>Desktop Help</h3>
+            <p>Enter = A</p>
+            <p>Backspace = B</p>
+            <p>Z = Select</p>
+            <p>X = Start</p>
+            <p style="margin-top: 8rem; font-size: 0.5rem">Have fun with konami code</p>
+          </div>
+        </div>
+        <div class="info-banner">
+          <div class="title"></div>
+          <div class="content">
+          </div>
+        </div>
+        <div class="cube-menu">
+        </div>
+      </div>
+      <div class="header">
+        Ninbendo
+      </div>
+
+    </div>
+    <div class="controls">
+      <div class="dpad">
+      </div>
+      <div class="a-b">
+      </div>
+    </div>
+    <div class="start-select">
+    </div>
+
+    <div class="popup">
+    </div>
+
+  </div>
+
+  <script src="src/index.ts"></script>
+  <audio id="error" src="https://alramalhosandbox.s3.eu-west-1.amazonaws.com/sounds/bump.wav"></audio>
+  <audio id="konami" src="https://alramalhosandbox.s3.eu-west-1.amazonaws.com/sounds/item-received.wav"></audio>
+
+</body>
+
+</html>

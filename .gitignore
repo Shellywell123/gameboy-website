@@ -1,5 +1,5 @@
 .idea
-frontend/node_modules
-frontend/dist
-frontend/.cache
+gameboy/node_modules
+gameboy/dist
+gameboy/.cache
 **/*/.DS_Store
