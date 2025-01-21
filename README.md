@@ -3,6 +3,8 @@ This is a small website idea I had to make a portfolio that navigate like a game
 I have since forked his awesome repo and began making some tweaks to get it closer to my own vision. 
 I aim to make a DMG themed website that has links to all my various projects/games.
 
+![image](https://github.com/Shellywell123/gameboy-website/blob/main/gameboy/src/assets/screengrab.gif)
+
 ### Running locally
 ```
 sudo chmod -R 777 gameboy && docker compose up
