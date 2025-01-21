@@ -5,7 +5,7 @@ I aim to make a DMG themed website that has links to all my various projects/gam
 
 ![image](https://github.com/Shellywell123/gameboy-website/blob/main/gameboy/src/assets/screengrab.gif)
 
-### Running locally
+### Running locally (still very much WIP)
 ```
 sudo chmod -R 777 gameboy && docker compose up
 ```
